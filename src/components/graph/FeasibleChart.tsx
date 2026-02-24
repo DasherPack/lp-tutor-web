@@ -8,13 +8,22 @@ import {
   Filler,
   Legend,
   LinearScale,
+  LineController,
   LineElement,
   PointElement,
   Tooltip,
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
 
-ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend, Filler);
+ChartJS.register(
+  LineController,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend,
+  Filler,
+);
 
 export type Point2D = { x: number; y: number };
 
