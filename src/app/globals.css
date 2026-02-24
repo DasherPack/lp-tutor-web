@@ -1,8 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Papel y tinta: tonos neutros y azul académico */
+  --background: #fafaf9;
+  --foreground: #1c1917;
+  --card: #ffffff;
+  --card-border: #e7e5e4;
+  --muted: #57534e;
+  --muted-bg: #f5f5f4;
+  --primary: #1e3a5f;
+  --primary-foreground: #ffffff;
+  --primary-hover: #172554;
+  --ring: #2563eb;
+  --success: #047857;
+  --warning: #a16207;
+  --warning-bg: #fefce8;
+  --error: #b91c1c;
+  --error-bg: #fef2f2;
+  --accent-math: #1e3a5f;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+  --radius: 0.375rem;
+  --radius-lg: 0.5rem;
+  --font-serif: var(--font-source-serif);
 }
 
 @theme inline {
@@ -10,17 +30,55 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-card: var(--card);
+  --color-card-border: var(--card-border);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #1c1917;
+    --foreground: #fafaf9;
+    --card: #292524;
+    --card-border: #44403c;
+    --muted: #a8a29e;
+    --muted-bg: #292524;
+    --primary: #3b82f6;
+    --primary-hover: #60a5fa;
+    --ring: #60a5fa;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.25);
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3);
   }
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Títulos con serif para aire matemático/académico */
+.font-heading {
+  font-family: var(--font-source-serif), Georgia, "Times New Roman", serif;
+  letter-spacing: -0.02em;
+}
+
+/* Inputs y controles: anillo de foco consistente */
+input[type="number"],
+input[type="text"],
+select {
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--ring);
+  box-shadow: 0 0 0 2px rgb(37 99 235 / 0.2);
 }
