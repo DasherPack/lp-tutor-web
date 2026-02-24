@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useMemo, useState } from "react";
 import { useProblemStore } from "@/store/problemStore";
 import { solveGraphical2D, solveGraphical2DProjected } from "@/lib/lp/graphical2d";
@@ -7,8 +8,13 @@ import { solveSimplex } from "@/lib/lp/simplex/solveSimplex";
 import type { SimplexSession } from "@/lib/lp/simplex/types";
 import type { GraphicalRunResult } from "@/store/problemStore";
 import { ProblemEditor } from "@/components/lp/ProblemEditor";
-import { FeasibleChart } from "@/components/graph/FeasibleChart";
 import { SimplexStackView } from "@/components/simplex/SimplexStackView";
+
+/** Chart.js usa canvas; cargar solo en cliente para evitar errores SSR */
+const FeasibleChart = dynamic(
+  () => import("@/components/graph/FeasibleChart").then((m) => m.FeasibleChart),
+  { ssr: false }
+);
 import { ResultSection } from "@/components/lp/ResultSection";
 
 export function MainFlow() {

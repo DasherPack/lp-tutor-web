@@ -42,6 +42,14 @@ export type ProblemState = {
 
 const STORAGE_NAME = "lp-tutor-v1";
 
+/** Storage seguro para SSR: localStorage solo en cliente; noop en servidor */
+function getStorage(): { getItem: (k: string) => string | null; setItem: (k: string, v: string) => void; removeItem: (k: string) => void } {
+  if (typeof window === "undefined") {
+    return { getItem: () => null, setItem: () => {}, removeItem: () => {} };
+  }
+  return localStorage;
+}
+
 function isSimplexSession(value: unknown): value is SimplexSession {
   if (typeof value !== "object" || value === null) return false;
   const v = value as Record<string, unknown>;
@@ -136,6 +144,7 @@ export const useProblemStore = create<ProblemState>()(
     {
       name: STORAGE_NAME,
       version: 3,
+      getStorage,
       migrate: (persistedState) => {
         const s = persistedState as Partial<ProblemState> & {
           simplex?: unknown;
