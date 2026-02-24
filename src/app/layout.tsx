@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Source_Serif_4 } from "next/font/google";
 import Link from "next/link";
 import { siteConfig } from "@/lib/seo/site";
+import { StoreHydration } from "@/components/StoreHydration";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -137,7 +138,7 @@ export default function RootLayout({
             </div>
           </header>
           <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-8 sm:px-6 sm:py-10">
-            {children}
+            <StoreHydration>{children}</StoreHydration>
           </main>
           <footer className="border-t border-[var(--card-border)] bg-[var(--card)]">
             <div className="mx-auto max-w-4xl px-4 py-5 sm:px-6">

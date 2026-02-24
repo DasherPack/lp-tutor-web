@@ -145,6 +145,7 @@ export const useProblemStore = create<ProblemState>()(
       name: STORAGE_NAME,
       version: 3,
       storage: createJSONStorage(getStorage),
+      skipHydration: true,
       migrate: (persistedState) => {
         const s = persistedState as Partial<ProblemState> & {
           simplex?: unknown;
