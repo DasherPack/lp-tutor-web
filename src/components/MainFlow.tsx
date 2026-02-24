@@ -10,12 +10,13 @@ import type { GraphicalRunResult } from "@/store/problemStore";
 import { ProblemEditor } from "@/components/lp/ProblemEditor";
 import { SimplexStackView } from "@/components/simplex/SimplexStackView";
 
+import { ResultSection } from "@/components/lp/ResultSection";
+
 /** Chart.js usa canvas; cargar solo en cliente para evitar errores SSR */
 const FeasibleChart = dynamic(
   () => import("@/components/graph/FeasibleChart").then((m) => m.FeasibleChart),
   { ssr: false }
 );
-import { ResultSection } from "@/components/lp/ResultSection";
 
 export function MainFlow() {
   const problem = useProblemStore((s) => s.problem);

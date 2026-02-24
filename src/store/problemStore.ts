@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 import type { LPProblem } from "@/lib/lp/types";
 import { defaultLPProblem2D, migrateProblemToBounds } from "@/lib/lp/types";
 import type { SimplexSession } from "@/lib/lp/simplex/types";
@@ -144,7 +144,7 @@ export const useProblemStore = create<ProblemState>()(
     {
       name: STORAGE_NAME,
       version: 3,
-      getStorage,
+      storage: createJSONStorage(getStorage),
       migrate: (persistedState) => {
         const s = persistedState as Partial<ProblemState> & {
           simplex?: unknown;
