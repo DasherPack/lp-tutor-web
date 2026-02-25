@@ -7,6 +7,7 @@ import type {
   SimplexStatus,
   SimplexStep,
   Tableau,
+  TranslatableMessage,
 } from "@/lib/lp/simplex/types";
 
 type StandardForm = {
@@ -317,7 +318,7 @@ export function solveSimplex(problem: LPProblem, opts?: {
   }
 
   const steps: SimplexStep[] = [];
-  const warnings: string[] = [];
+  const warnings: TranslatableMessage[] = [];
 
   // Step 0: initial tableau
   steps.push({
