@@ -1,0 +1,166 @@
+{
+  "common": {
+    "nav": {
+      "graphical": "Méthode graphique 2D",
+      "simplex": "Simplexe tabulaire",
+      "main": "Principal"
+    },
+    "backHome": "← Retour à l'accueil",
+    "view": "Voir"
+  },
+  "layout": {
+    "footer": "Outil éducatif de programmation linéaire. Méthode graphique et Simplexe pas à pas."
+  },
+  "home": {
+    "title": "Calculateur de programmation linéaire",
+    "description": "Outil éducatif pour résoudre les problèmes d'optimisation linéaire avec la <strong>méthode du Simplexe</strong> (pas à pas) et la <strong>méthode graphique</strong> en 2D.",
+    "simplexLink": "Méthode du Simplexe pas à pas",
+    "simplexDesc": "— Tableau, Big-M, pivotage et détection d'optimum, d'infaisabilité ou de non bornitude.",
+    "graphicalLink": "Méthode graphique 2D",
+    "graphicalDesc": "— Région réalisable, sommets et point optimal pour les problèmes à deux variables."
+  },
+  "mainFlow": {
+    "title": "Formuler le problème",
+    "intro": "Saisissez la fonction objectif et les contraintes. Avec 2 variables, la région réalisable et l'optimum s'afficheront ; avec plus de variables, le Simplexe sera utilisé et, le cas échéant, la projection sur x₁, x₂.",
+    "viewGraphical": "Méthode graphique",
+    "viewSimplex": "Simplexe",
+    "regionTitle": "Région réalisable et optimum",
+    "projectionTitle": "Projection sur x₁, x₂",
+    "projectionHint": "Projection en fixant x₃ = … = xₙ = 0.",
+    "infeasible": "Pas de région réalisable (le problème est infaisable).",
+    "projectionEmpty": "La projection sur x₁, x₂ (x₃ = … = 0) n'a pas de région avec aire dans le plan.",
+    "calculatingSimplex": "Calcul du Simplexe…",
+    "simplexTitle": "Méthode du Simplexe",
+    "status": "État",
+    "errorGraphical": "Erreur dans la méthode graphique.",
+    "errorSimplex": "Erreur lors de la résolution du Simplexe."
+  },
+  "editor": {
+    "title": "Éditeur du problème",
+    "hint": "Modifier avec le formulaire et appliquer.",
+    "applyHint": "Utilisez \"Appliquer les modifications\" pour créer un snapshot (annuler/rétablir).",
+    "undo": "Annuler",
+    "redo": "Rétablir",
+    "reset": "Réinitialiser",
+    "apply": "Appliquer",
+    "applyChanges": "Appliquer les modifications",
+    "numVars": "Nombre de variables",
+    "numVarsShort": "Nº variables",
+    "invalidInput": "Entrée invalide.",
+    "graphical2DWarning": "Le module graphique est 2D. Réglez le nombre de variables à 2 pour afficher le graphe."
+  },
+  "validation": {
+    "objectiveCoeffs": "La fonction objectif doit avoir un coefficient par variable.",
+    "minConstraints": "Ajoutez au moins une contrainte.",
+    "constraintCoeffs": "La contrainte {{i}} doit avoir {{n}} coefficients.",
+    "boundsCount": "Il doit y avoir autant de bornes que de variables.",
+    "boundsOrder": "Pour x{{i}} : la borne inférieure ne peut pas être supérieure à la borne supérieure."
+  },
+  "objective": {
+    "title": "Fonction objectif",
+    "sense": "Sens",
+    "max": "Maximiser",
+    "min": "Minimiser"
+  },
+  "constraints": {
+    "title": "Contraintes",
+    "add": "Ajouter une contrainte",
+    "remove": "Supprimer"
+  },
+  "bounds": {
+    "title": "Bornes par variable",
+    "hint": "Forme a ≤ xᵢ ≤ b. Laisser vide = sans borne (∞ ou −∞). Par défaut : 0 ≤ xᵢ.",
+    "lower": "Borne inférieure x{{i}}",
+    "upper": "Borne supérieure x{{i}}",
+    "placeholderLower": "0",
+    "placeholderUpper": "∞"
+  },
+  "summary": {
+    "title": "Résumé",
+    "variables": "Variables",
+    "bounds": "Bornes",
+    "objective": "Objectif",
+    "constraints": "Contraintes",
+    "defaultBounds": "Par défaut (non-négativité)"
+  },
+  "result": {
+    "title": "Résultat",
+    "status": "État",
+    "optimalValue": "Valeur optimale",
+    "solution": "Solution",
+    "solution2D": "Solution (2D)",
+    "infeasible": "Le problème n'a pas de solution réalisable.",
+    "unbounded": "Le problème est non borné."
+  },
+  "simplex": {
+    "runTitle": "Exécuter le Simplexe",
+    "runHint": "Construit le tableau (Big‑M) et génère les étapes itératives.",
+    "generateSteps": "Générer les itérations",
+    "maxIterations": "Max. itérations",
+    "blandRule": "Règle de Bland",
+    "status": "État",
+    "generateHint": "Générez les itérations pour voir le tableau pas à pas.",
+    "tableauTitle": "Tableau",
+    "base": "Base",
+    "rhs": "RHS",
+    "operationsTitle": "Opérations",
+    "noOperations": "Aucune opération.",
+    "explanationTitle": "Explication",
+    "pivotInfo": "Pivot : ligne {{row}}, colonne {{col}} ({{entering}} entre, {{leaving}} sort)",
+    "stepOf": "Étape {{current}} sur {{total}}",
+    "first": "Début",
+    "prev": "Précédent",
+    "next": "Suivant",
+    "last": "Fin",
+    "allIterations": "Méthode du Simplexe — Toutes les itérations",
+    "iteration": "Itération {{n}}",
+    "pageTitle": "Méthode du Simplexe tabulaire pour la programmation linéaire",
+    "pageIntro": "La <strong>méthode du Simplexe</strong> résout les problèmes de programmation linéaire sous forme standard à l'aide d'un <strong>tableau</strong> : on ajoute d'abord les variables d'écart (≤), d'excédent et artificielles (≥, =) avec pénalisation <strong>Big-M</strong> ; puis on itère en choisissant la colonne entrante (coût réduit le plus négatif) et la ligne sortante (rapport minimal), et on applique le <strong>pivotage</strong> (Gauss-Jordan) jusqu'à l'optimalité ou la détection d'infaisabilité ou de non bornitude.",
+    "whatIsTitle": "Qu'est-ce que la méthode du Simplexe ?",
+    "whatIsP1": "La <strong>méthode du Simplexe</strong> est un algorithme pour résoudre les problèmes de programmation linéaire. Elle a été développée par <strong>George Dantzig</strong> et consiste à se déplacer le long des sommets de la région réalisable (dans l'espace des variables), en améliorant la valeur de la fonction objectif à chaque étape jusqu'à atteindre l'optimum ou détecter que le problème est non borné ou infaisable.",
+    "whatIsP2": "<strong>Forme standard.</strong> Le Simplexe travaille avec des problèmes sous forme standard : maximisation (ou minimisation convertie en max), contraintes d'égalité et variables non négatives. Les inégalités sont transformées à l'aide de <strong>variables d'écart</strong> (≤), <strong>d'excédent</strong> et <strong>variables artificielles</strong> (≥ et =).",
+    "whatIsP3": "<strong>Méthode Big-M.</strong> Lorsqu'il y a des contraintes ≥ ou =, des variables artificielles sont ajoutées et pénalisées dans la fonction objectif par un coefficient -M (en maximisation) pour qu'elles quittent la base ; ainsi on obtient une base réalisable initiale ou on détecte l'infaisabilité.",
+    "whatIsP4": "<strong>Tableau et pivotage.</strong> L'algorithme s'applique sur un <strong>tableau</strong> représentant le système sous forme canonique par rapport à la base actuelle. À chaque itération, une variable entrante est choisie (par le <strong>coût réduit</strong> le plus négatif) et une variable sortante (par la règle du <strong>rapport minimal</strong>), et un pivotage de type Gauss-Jordan est effectué. Le processus se termine lorsqu'il n'y a plus de coûts réduits négatifs (optimum), plus de ligne sortante (non borné) ou des variables artificielles restent dans la base (infaisable).",
+    "explanations": {
+      "initialTableau": "Tableau initial (forme standard + Big‑M) et canonicalisation par rapport à la base initiale.",
+      "pivotStep": "Pivotage de Gauss‑Jordan : normalise la ligne pivot et annule la colonne pivot dans les autres lignes (équivalent à appliquer une transformation élémentaire).",
+      "unbounded": "Pas de ligne sortante (le test du rapport minimal échoue) : le problème est non borné."
+    },
+    "warnings": {
+      "invalidProblem": "Le problème n'est pas valide ou n'a pas pu être mis sous forme standard.",
+      "iterationLimit": "Limite d'itérations atteinte ({{max}}). Ajustez la limite ou vérifiez la dégénérescence.",
+      "infeasible": "Big‑M détecte des artificielles positives à la fin : le système n'a pas de solution réalisable."
+    }
+  },
+  "graphical": {
+    "pageTitle": "Méthode graphique 2D pour la programmation linéaire",
+    "pageIntro": "La <strong>méthode graphique</strong> permet de résoudre les problèmes de programmation linéaire à <strong>deux variables</strong> : chaque contrainte définit un demi-plan, l'intersection de tous forme la <strong>région réalisable</strong> (un polygone). L'optimum est atteint en un des <strong>sommets</strong> du polygone ; on évalue la fonction objectif à chaque sommet et on prend le maximum ou le minimum selon le sens du problème.",
+    "planeTitle": "Plan (x₁, x₂)",
+    "feasibleRegion": "Région réalisable",
+    "objectiveLine": "Objectif (z = cte)",
+    "improvementDir": "Direction d'amélioration",
+    "optimal": "Optimum",
+    "warnings": {
+      "requires2Vars": "La méthode graphique requiert exactement 2 variables.",
+      "invalidObjective": "La fonction objectif n'est pas valide.",
+      "invalidConstraint": "Une contrainte n'est pas valide (coefficients ou b).",
+      "touchesBoundary": "La région touche la frontière artificielle de découpe. Elle pourrait être non bornée (augmentez la plage ou validez avec le Simplexe).",
+      "projection": "Projection sur x₁, x₂ (variables restantes = 0)."
+    }
+  },
+  "status": {
+    "optimal": "Optimal",
+    "infeasible": "Infaisable",
+    "unbounded": "Non borné",
+    "invalid": "Invalide",
+    "iteration_limit": "Limite d'itérations",
+    "ok": "OK",
+    "maybe_unbounded": "Possiblement non borné",
+    "dash": "—"
+  },
+  "history": {
+    "initial": "Initial",
+    "reset": "Réinitialiser",
+    "edit": "Modifier"
+  }
+}

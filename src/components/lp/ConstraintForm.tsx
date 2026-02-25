@@ -2,6 +2,7 @@
 
 import type { Constraint, ConstraintOp } from "@/lib/lp/types";
 import { NumberInput } from "@/components/lp/NumberInput";
+import { useTranslation } from "@/lib/i18n";
 
 const OPS: Array<{ value: ConstraintOp; label: string }> = [
   { value: "<=", label: "≤" },
@@ -15,12 +16,13 @@ export function ConstraintForm(props: {
   onChange: (next: Constraint[]) => void;
   disabled?: boolean;
 }) {
+  const { t } = useTranslation();
   const { numVars, constraints, onChange, disabled } = props;
 
   return (
     <div className="grid gap-3">
       <div className="flex items-center justify-between gap-4">
-        <h2 className="font-heading text-sm font-semibold text-[var(--foreground)]">Restricciones</h2>
+        <h2 className="font-heading text-sm font-semibold text-[var(--foreground)]">{t("constraints.title")}</h2>
         <button
           type="button"
           className="rounded-[var(--radius)] border border-[var(--card-border)] bg-[var(--card)] px-3 py-1 text-sm font-semibold hover:bg-[var(--muted-bg)]"
@@ -32,7 +34,7 @@ export function ConstraintForm(props: {
           }
           disabled={disabled}
         >
-          Añadir
+          {t("constraints.add")}
         </button>
       </div>
 
@@ -110,9 +112,9 @@ export function ConstraintForm(props: {
                 className="ml-auto rounded-[var(--radius)] px-2 py-1 text-sm font-semibold text-[var(--muted)] hover:bg-[var(--muted-bg)] hover:text-[var(--foreground)]"
                 onClick={() => onChange(constraints.filter((_, i) => i !== rowIdx))}
                 disabled={disabled || constraints.length <= 1}
-                aria-label={`Eliminar restricción ${rowIdx + 1}`}
+                aria-label={`${t("constraints.remove")} ${rowIdx + 1}`}
               >
-                Eliminar
+                {t("constraints.remove")}
               </button>
             </div>
           </div>

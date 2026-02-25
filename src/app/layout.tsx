@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Source_Serif_4 } from "next/font/google";
-import Link from "next/link";
 import { siteConfig } from "@/lib/seo/site";
-import { StoreHydration } from "@/components/StoreHydration";
+import { I18nShell } from "@/components/I18nShell";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -36,6 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: siteConfig.locale,
+    alternateLocale: ["en_US", "fr_FR", "de_DE", "ja_JP", "zh_CN"],
     siteName: siteConfig.name,
     url: baseUrl,
     title: siteConfig.name,
@@ -51,7 +51,18 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true },
   },
-  alternates: { canonical: baseUrl },
+  alternates: {
+    canonical: baseUrl,
+    languages: {
+      "es": baseUrl,
+      "en": baseUrl,
+      "fr": baseUrl,
+      "de": baseUrl,
+      "ja": baseUrl,
+      "zh-Hans": baseUrl,
+      "x-default": baseUrl,
+    },
+  },
 };
 
 const jsonLd = {
@@ -112,42 +123,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${sourceSerif.variable} min-h-dvh antialiased bg-[var(--background)] text-[var(--foreground)]`}
       >
-        <div className="min-h-dvh flex flex-col">
-          <header className="sticky top-0 z-10 border-b border-[var(--card-border)] bg-[var(--card)]/98 shadow-[var(--shadow-sm)] backdrop-blur-sm">
-            <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3 sm:px-6">
-              <Link
-                href="/"
-                className="font-heading text-xl font-semibold tracking-tight text-[var(--foreground)] transition hover:text-[var(--primary)]"
-              >
-                {siteConfig.brandShort}
-              </Link>
-              <nav className="flex items-center gap-1 text-sm font-medium" aria-label="Principal">
-                <Link
-                  href="/graphical"
-                  className="rounded-[var(--radius)] px-3 py-2 text-[var(--muted)] transition hover:bg-[var(--muted-bg)] hover:text-[var(--foreground)]"
-                >
-                  Método gráfico 2D
-                </Link>
-                <Link
-                  href="/simplex"
-                  className="rounded-[var(--radius)] px-3 py-2 text-[var(--muted)] transition hover:bg-[var(--muted-bg)] hover:text-[var(--foreground)]"
-                >
-                  Simplex tabular
-                </Link>
-              </nav>
-            </div>
-          </header>
-          <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-8 sm:px-6 sm:py-10">
-            <StoreHydration>{children}</StoreHydration>
-          </main>
-          <footer className="border-t border-[var(--card-border)] bg-[var(--card)]">
-            <div className="mx-auto max-w-4xl px-4 py-5 sm:px-6">
-              <p className="font-heading text-xs text-[var(--muted)]">
-                Herramienta educativa de programación lineal. Método gráfico y Simplex paso a paso.
-              </p>
-            </div>
-          </footer>
-        </div>
+        <I18nShell>{children}</I18nShell>
       </body>
     </html>
   );

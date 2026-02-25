@@ -3,12 +3,14 @@
 import type { LPProblem } from "@/lib/lp/types";
 import type { GraphicalRunResult } from "@/store/problemStore";
 import type { SimplexSession } from "@/lib/lp/simplex/types";
+import { useTranslation } from "@/lib/i18n";
 
 export function ResultSection(props: {
   problem: LPProblem;
   graphical: GraphicalRunResult | null;
   simplex: SimplexSession | null;
 }) {
+  const { t } = useTranslation();
   const { problem, graphical, simplex } = props;
 
   const solution = simplex?.solution ?? null;
@@ -19,20 +21,20 @@ export function ResultSection(props: {
 
   return (
     <div className="rounded-[var(--radius-lg)] border border-[var(--card-border)] bg-[var(--card)] p-6 shadow-[var(--shadow-sm)]">
-      <h2 className="font-heading text-lg font-semibold text-[var(--foreground)]">Resultado</h2>
+      <h2 className="font-heading text-lg font-semibold text-[var(--foreground)]">{t("result.title")}</h2>
       <div className="mt-4 grid gap-3 text-sm">
         <div>
-          <span className="font-medium text-[var(--muted)]">Estado: </span>
-          <span className="font-semibold text-[var(--foreground)]">{status ?? "—"}</span>
+          <span className="font-medium text-[var(--muted)]">{t("result.status")}: </span>
+          <span className="font-semibold text-[var(--foreground)]">{status ? t(`status.${status}`) : t("status.dash")}</span>
         </div>
         {hasResult && solution && (
           <>
             <div className="rounded-[var(--radius)] border border-[var(--card-border)] bg-[var(--muted-bg)] p-4 font-mono text-[var(--foreground)]">
-              <div className="font-heading text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">Valor óptimo</div>
+              <div className="font-heading text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">{t("result.optimalValue")}</div>
               <div className="mt-1 text-lg font-semibold">
                 z* = {solution.z.toFixed(6)}
               </div>
-              <div className="mt-3 font-heading text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">Solución</div>
+              <div className="mt-3 font-heading text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">{t("result.solution")}</div>
               <div className="mt-1">
                 x* = ({solution.x.map((v) => v.toFixed(6)).join(", ")})
               </div>
@@ -44,19 +46,19 @@ export function ResultSection(props: {
         )}
         {hasResult && !solution && graphical?.optimalPoint && graphical?.objectiveValue != null && (
           <div className="rounded-[var(--radius)] border border-[var(--card-border)] bg-[var(--muted-bg)] p-4 font-mono text-[var(--foreground)]">
-            <div className="font-heading text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">Valor óptimo</div>
+            <div className="font-heading text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">{t("result.optimalValue")}</div>
             <div className="mt-1 text-lg font-semibold">z* = {graphical.objectiveValue.toFixed(6)}</div>
-            <div className="mt-3 font-heading text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">Solución (2D)</div>
+            <div className="mt-3 font-heading text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">{t("result.solution2D")}</div>
             <div className="mt-1">
               x₁* = {graphical.optimalPoint.x.toFixed(6)}, x₂* = {graphical.optimalPoint.y.toFixed(6)}
             </div>
           </div>
         )}
         {status === "infeasible" && (
-          <p className="text-[var(--warning)]">El problema no tiene solución factible.</p>
+          <p className="text-[var(--warning)]">{t("result.infeasible")}</p>
         )}
         {status === "unbounded" && (
-          <p className="text-[var(--warning)]">El problema es no acotado.</p>
+          <p className="text-[var(--warning)]">{t("result.unbounded")}</p>
         )}
       </div>
     </div>

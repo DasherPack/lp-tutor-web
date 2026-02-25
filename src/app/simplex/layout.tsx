@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/lib/seo/site";
+import { SimplexHeader } from "@/components/simplex/SimplexHeader";
 import { SimplexWhatIs } from "@/components/simplex/SimplexWhatIs";
 
 const baseUrl = siteConfig.baseUrl ?? "https://lp-tutor.example.com";
@@ -125,24 +126,7 @@ export default function SimplexLayout({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(simplexHowToJsonLd) }}
       />
       <article aria-labelledby="simplex-heading">
-        <header className="mb-4">
-          <h1
-            id="simplex-heading"
-            className="font-heading text-2xl font-semibold tracking-tight text-[var(--foreground)]"
-          >
-            Método Simplex tabular para programación lineal
-          </h1>
-          <p className="mt-2 text-sm text-[var(--muted)] max-w-3xl leading-relaxed">
-            El <strong>método Simplex</strong> resuelve problemas de programación
-            lineal en forma estándar mediante un <strong>tableau</strong>:
-            primero se añaden variables de holgura (≤), surplus y artificiales
-            (≥, =) con penalización <strong>Big-M</strong>; luego se itera
-            eligiendo la columna entrante por coste reducido más negativo y la
-            fila saliente por la <strong>razón mínima</strong>, y se aplica{" "}
-            <strong>pivoteo</strong> (Gauss-Jordan) hasta alcanzar optimalidad o
-            detectar infactibilidad o no acotación.
-          </p>
-        </header>
+        <SimplexHeader />
         <SimplexWhatIs />
         {children}
       </article>

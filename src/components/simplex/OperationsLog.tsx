@@ -1,10 +1,13 @@
 "use client";
 
+import { useTranslation } from "@/lib/i18n";
+
 export function OperationsLog(props: { operations: string[] }) {
+  const { t } = useTranslation();
   const { operations } = props;
   return (
     <div className="rounded-[var(--radius-lg)] border border-[var(--card-border)] bg-[var(--card)] p-4 shadow-[var(--shadow-sm)]">
-      <div className="font-heading text-sm font-semibold text-[var(--foreground)]">Operaciones</div>
+      <div className="font-heading text-sm font-semibold text-[var(--foreground)]">{t("simplex.operationsTitle")}</div>
       {operations.length ? (
         <ul className="mt-3 grid gap-1 text-xs font-mono text-[var(--foreground)]">
           {operations.map((op, i) => (
@@ -14,7 +17,7 @@ export function OperationsLog(props: { operations: string[] }) {
           ))}
         </ul>
       ) : (
-        <div className="mt-3 text-sm text-[var(--muted)]">Sin operaciones.</div>
+        <div className="mt-3 text-sm text-[var(--muted)]">{t("simplex.noOperations")}</div>
       )}
     </div>
   );

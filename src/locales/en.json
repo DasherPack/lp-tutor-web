@@ -1,0 +1,166 @@
+{
+  "common": {
+    "nav": {
+      "graphical": "2D Graphical Method",
+      "simplex": "Tabular Simplex",
+      "main": "Main"
+    },
+    "backHome": "← Back to home",
+    "view": "View"
+  },
+  "layout": {
+    "footer": "Educational tool for linear programming. Graphical method and step-by-step Simplex."
+  },
+  "home": {
+    "title": "Linear Programming Calculator",
+    "description": "Educational tool to solve linear optimization problems with the <strong>Simplex method</strong> (step by step) and the <strong>graphical method</strong> in 2D.",
+    "simplexLink": "Step-by-step Simplex method",
+    "simplexDesc": "— Tableau, Big-M, pivoting and detection of optimum, infeasibility or unboundedness.",
+    "graphicalLink": "2D Graphical method",
+    "graphicalDesc": "— Feasible region, vertices and optimal point for two-variable problems."
+  },
+  "mainFlow": {
+    "title": "State the problem",
+    "intro": "Enter the objective function and constraints. With 2 variables the feasible region and optimum will be shown; with more variables Simplex will be used and, if applicable, the projection onto x₁, x₂.",
+    "viewGraphical": "Graphical method",
+    "viewSimplex": "Simplex",
+    "regionTitle": "Feasible region and optimum",
+    "projectionTitle": "Projection onto x₁, x₂",
+    "projectionHint": "Projection with x₃ = … = xₙ = 0.",
+    "infeasible": "No feasible region (the problem is infeasible).",
+    "projectionEmpty": "The projection onto x₁, x₂ (x₃ = … = 0) has no region with area in the plane.",
+    "calculatingSimplex": "Computing Simplex…",
+    "simplexTitle": "Simplex Method",
+    "status": "Status",
+    "errorGraphical": "Error in graphical method.",
+    "errorSimplex": "Error solving Simplex."
+  },
+  "editor": {
+    "title": "Problem editor",
+    "hint": "Edit with the form and apply.",
+    "applyHint": "Use \"Apply changes\" to create a snapshot (undo/redo).",
+    "undo": "Undo",
+    "redo": "Redo",
+    "reset": "Reset",
+    "apply": "Apply",
+    "applyChanges": "Apply changes",
+    "numVars": "Number of variables",
+    "numVarsShort": "No. variables",
+    "invalidInput": "Invalid input.",
+    "graphical2DWarning": "The graphical module is 2D. Set the number of variables to 2 to graph."
+  },
+  "validation": {
+    "objectiveCoeffs": "The objective function must have one coefficient per variable.",
+    "minConstraints": "Add at least one constraint.",
+    "constraintCoeffs": "Constraint {{i}} must have {{n}} coefficients.",
+    "boundsCount": "There must be as many bounds as variables.",
+    "boundsOrder": "For x{{i}}: lower bound cannot be greater than upper bound."
+  },
+  "objective": {
+    "title": "Objective function",
+    "sense": "Sense",
+    "max": "Maximize",
+    "min": "Minimize"
+  },
+  "constraints": {
+    "title": "Constraints",
+    "add": "Add constraint",
+    "remove": "Remove"
+  },
+  "bounds": {
+    "title": "Bounds per variable",
+    "hint": "Form a ≤ xᵢ ≤ b. Leave empty = no bound (∞ or −∞). Default: 0 ≤ xᵢ.",
+    "lower": "Lower bound x{{i}}",
+    "upper": "Upper bound x{{i}}",
+    "placeholderLower": "0",
+    "placeholderUpper": "∞"
+  },
+  "summary": {
+    "title": "Summary",
+    "variables": "Variables",
+    "bounds": "Bounds",
+    "objective": "Objective",
+    "constraints": "Constraints",
+    "defaultBounds": "Default (non-negativity)"
+  },
+  "result": {
+    "title": "Result",
+    "status": "Status",
+    "optimalValue": "Optimal value",
+    "solution": "Solution",
+    "solution2D": "Solution (2D)",
+    "infeasible": "The problem has no feasible solution.",
+    "unbounded": "The problem is unbounded."
+  },
+  "simplex": {
+    "runTitle": "Run Simplex",
+    "runHint": "Builds the tableau (Big‑M) and generates iterative steps.",
+    "generateSteps": "Generate iterations",
+    "maxIterations": "Max. iterations",
+    "blandRule": "Bland's rule",
+    "status": "Status",
+    "generateHint": "Generate iterations to see the tableau step by step.",
+    "tableauTitle": "Tableau",
+    "base": "Base",
+    "rhs": "RHS",
+    "operationsTitle": "Operations",
+    "noOperations": "No operations.",
+    "explanationTitle": "Explanation",
+    "pivotInfo": "Pivot: row {{row}}, column {{col}} ({{entering}} enters, {{leaving}} leaves)",
+    "stepOf": "Step {{current}} of {{total}}",
+    "first": "First",
+    "prev": "Previous",
+    "next": "Next",
+    "last": "Last",
+    "allIterations": "Simplex Method — All iterations",
+    "iteration": "Iteration {{n}}",
+    "pageTitle": "Tabular Simplex method for linear programming",
+    "pageIntro": "The <strong>Simplex method</strong> solves linear programming problems in standard form using a <strong>tableau</strong>: first add slack variables (≤), surplus and artificial variables (≥, =) with <strong>Big-M</strong> penalty; then iterate by choosing the entering column (most negative reduced cost) and leaving row (minimum ratio), and apply <strong>pivoting</strong> (Gauss-Jordan) until optimality or detection of infeasibility or unboundedness.",
+    "whatIsTitle": "What is the Simplex method?",
+    "whatIsP1": "The <strong>Simplex method</strong> is an algorithm to solve linear programming problems. It was developed by <strong>George Dantzig</strong> and consists of moving along vertices of the feasible region (in variable space), improving the objective function value at each step until reaching the optimum or detecting that the problem is unbounded or infeasible.",
+    "whatIsP2": "<strong>Standard form.</strong> Simplex works with problems in standard form: maximization (or minimization converted to max), equality constraints and non-negative variables. Inequalities are transformed using <strong>slack variables</strong> (≤), <strong>surplus</strong> and <strong>artificial variables</strong> (≥ and =).",
+    "whatIsP3": "<strong>Big-M method.</strong> When there are ≥ or = constraints, artificial variables are added and penalized in the objective function with a coefficient -M (in maximization) so they leave the basis; this yields an initial feasible basis or detects infeasibility.",
+    "whatIsP4": "<strong>Tableau and pivoting.</strong> The algorithm is applied on a <strong>tableau</strong> (table) representing the system in canonical form with respect to the current basis. At each iteration an entering variable is chosen (by most negative <strong>reduced cost</strong>) and a leaving variable (by the <strong>minimum ratio</strong> rule), and Gauss-Jordan pivoting is performed. The process ends when there are no negative reduced costs (optimum), no leaving row (unbounded) or artificial variables remain in the basis (infeasible).",
+    "explanations": {
+      "initialTableau": "Initial table (standard form + Big‑M) and canonicalization with respect to the initial basis.",
+      "pivotStep": "Gauss‑Jordan pivoting: normalizes the pivot row and zeroes the pivot column in the other rows (equivalent to applying an elementary transformation).",
+      "unbounded": "No leaving row (minimum ratio test fails): the problem is unbounded."
+    },
+    "warnings": {
+      "invalidProblem": "The problem is invalid or could not be standardized.",
+      "iterationLimit": "Iteration limit reached ({{max}}). Adjust the limit or check for degeneracy.",
+      "infeasible": "Big‑M detects positive artificials at termination: the system has no feasible solution."
+    }
+  },
+  "graphical": {
+    "pageTitle": "2D Graphical method for linear programming",
+    "pageIntro": "The <strong>graphical method</strong> allows solving linear programming problems with <strong>two variables</strong>: each constraint defines a half-plane, the intersection of all of them is the <strong>feasible region</strong> (a polygon). The optimum is reached at one of the <strong>vertices</strong> of the polygon; the objective function is evaluated at each vertex and the maximum or minimum is taken according to the problem's sense.",
+    "planeTitle": "Plane (x₁, x₂)",
+    "feasibleRegion": "Feasible region",
+    "objectiveLine": "Objective (z = const)",
+    "improvementDir": "Improvement direction",
+    "optimal": "Optimum",
+    "warnings": {
+      "requires2Vars": "The graphical method requires exactly 2 variables.",
+      "invalidObjective": "The objective function is invalid.",
+      "invalidConstraint": "Some constraint is invalid (coefficients or b).",
+      "touchesBoundary": "The region touches the artificial clipping boundary. It might be unbounded (increase range or validate with Simplex).",
+      "projection": "Projection onto x₁, x₂ (remaining variables = 0)."
+    }
+  },
+  "status": {
+    "optimal": "Optimal",
+    "infeasible": "Infeasible",
+    "unbounded": "Unbounded",
+    "invalid": "Invalid",
+    "iteration_limit": "Iteration limit",
+    "ok": "OK",
+    "maybe_unbounded": "Possibly unbounded",
+    "dash": "—"
+  },
+  "history": {
+    "initial": "Initial",
+    "reset": "Reset",
+    "edit": "Edit"
+  }
+}

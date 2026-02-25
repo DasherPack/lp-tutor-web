@@ -1,6 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useTranslation } from "@/lib/i18n";
+import { translateMessage } from "@/lib/i18n/translateMessage";
 import { solveSimplex } from "@/lib/lp/simplex/solveSimplex";
 import type { SimplexSession } from "@/lib/lp/simplex/types";
 import { useProblemStore } from "@/store/problemStore";
@@ -9,6 +11,7 @@ import { TableauView } from "@/components/simplex/TableauView";
 import { OperationsLog } from "@/components/simplex/OperationsLog";
 
 export function SimplexPanel() {
+  const { t } = useTranslation();
   const problem = useProblemStore((s) => s.problem);
   const simplex = useProblemStore((s) => s.simplex as SimplexSession | null);
   const setSimplex = useProblemStore((s) => s.setSimplex);
@@ -27,10 +30,8 @@ export function SimplexPanel() {
       <div className="rounded-2xl border border-zinc-200 bg-white p-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h2 className="text-sm font-semibold text-zinc-900">Ejecutar Simplex</h2>
-            <p className="mt-1 text-xs text-zinc-600">
-              Construye el tableau (Big‑M) y genera pasos iterativos.
-            </p>
+            <h2 className="text-sm font-semibold text-zinc-900">{t("simplex.runTitle")}</h2>
+            <p className="mt-1 text-xs text-zinc-600">{t("simplex.runHint")}</p>
           </div>
           <button
             type="button"
@@ -44,7 +45,7 @@ export function SimplexPanel() {
               setSimplex({ ...session, cursor: 0 });
             }}
           >
-            Generar iteraciones
+            {t("simplex.generateSteps")}
           </button>
         </div>
 
@@ -60,7 +61,7 @@ export function SimplexPanel() {
             />
           </label>
           <label className="grid gap-1 text-sm font-medium text-zinc-800">
-            Máx. iteraciones
+            {t("simplex.maxIterations")}
             <input
               className="rounded-lg border border-zinc-300 bg-white px-2 py-2 text-sm"
               type="number"
@@ -76,14 +77,14 @@ export function SimplexPanel() {
               checked={bland}
               onChange={(e) => setBland(e.target.checked)}
             />
-            Regla de Bland
+            {t("simplex.blandRule")}
           </label>
         </div>
 
         {simplex ? (
           <div className="mt-4 grid gap-2 text-sm text-zinc-800">
             <div>
-              <span className="font-semibold">Estado</span>: {simplex.status}
+              <span className="font-semibold">{t("simplex.status")}</span>: {t(`status.${simplex.status}`)}
             </div>
             {simplex.solution ? (
               <div className="font-mono text-xs text-zinc-800">
@@ -94,15 +95,13 @@ export function SimplexPanel() {
             {simplex.warnings.length ? (
               <ul className="list-disc pl-5 text-amber-900">
                 {simplex.warnings.map((w, i) => (
-                  <li key={i}>{w}</li>
+                  <li key={i}>{translateMessage(w, t)}</li>
                 ))}
               </ul>
             ) : null}
           </div>
         ) : (
-          <div className="mt-4 text-sm text-zinc-700">
-            Genera iteraciones para ver el tableau paso a paso.
-          </div>
+          <div className="mt-4 text-sm text-zinc-700">{t("simplex.generateHint")}</div>
         )}
       </div>
 
@@ -135,12 +134,16 @@ export function SimplexPanel() {
                 pivot={step.pivot}
               />
               <div className="rounded-2xl border border-zinc-200 bg-white p-4">
-                <div className="text-sm font-semibold text-zinc-900">Explicación</div>
-                <div className="mt-2 text-sm text-zinc-700">{step.explanation}</div>
+                <div className="text-sm font-semibold text-zinc-900">{t("simplex.explanationTitle")}</div>
+                <div className="mt-2 text-sm text-zinc-700">{t(step.explanation)}</div>
                 {step.pivot ? (
                   <div className="mt-3 text-xs text-zinc-700">
-                    Pivote: fila {step.pivot.row + 1}, columna {step.pivot.col + 1} (
-                    {step.enteringVar} entra, {step.leavingVar} sale)
+                    {t("simplex.pivotInfo", {
+                      row: step.pivot.row + 1,
+                      col: step.pivot.col + 1,
+                      entering: step.enteringVar ?? "",
+                      leaving: step.leavingVar ?? "",
+                    })}
                   </div>
                 ) : null}
               </div>

@@ -307,7 +307,7 @@ export function solveSimplex(problem: LPProblem, opts?: {
       steps: [],
       cursor: 0,
       solution: null,
-      warnings: ["El problema no es válido o no se pudo estandarizar."],
+      warnings: ["simplex.warnings.invalidProblem"],
     };
   }
 
@@ -325,8 +325,7 @@ export function solveSimplex(problem: LPProblem, opts?: {
     tableauBefore: cloneTableau(std.tableau),
     tableauAfter: cloneTableau(std.tableau),
     operations: std.canonicalizationOps,
-    explanation:
-      "Tabla inicial (forma estándar + Big‑M) y canonicalización respecto a la base inicial.",
+    explanation: "simplex.explanations.initialTableau",
   });
 
   let status: SimplexStatus = "iteration_limit";
@@ -354,8 +353,7 @@ export function solveSimplex(problem: LPProblem, opts?: {
         tableauBefore: cloneTableau(std.tableau),
         tableauAfter: cloneTableau(std.tableau),
         operations: [],
-        explanation:
-          "No hay fila saliente (test de razón mínima falla): el problema es no acotado.",
+        explanation: "simplex.explanations.unbounded",
       });
       break;
     }
@@ -385,8 +383,7 @@ export function solveSimplex(problem: LPProblem, opts?: {
       tableauBefore,
       tableauAfter,
       operations,
-      explanation:
-        "Pivoteo Gauss‑Jordan: normaliza la fila pivote y anula la columna pivote en el resto de filas (equivalente a aplicar una transformación elemental).",
+      explanation: "simplex.explanations.pivotStep",
     });
   }
 
@@ -400,14 +397,10 @@ export function solveSimplex(problem: LPProblem, opts?: {
   }
 
   if (status === "iteration_limit") {
-    warnings.push(
-      `Se alcanzó el límite de iteraciones (${maxIterations}). Ajusta el límite o revisa degeneración.`,
-    );
+    warnings.push({ key: "simplex.warnings.iterationLimit", params: { max: maxIterations } });
   }
   if (status === "infeasible") {
-    warnings.push(
-      "Big‑M detecta artificiales positivas al terminar: el sistema no tiene solución factible.",
-    );
+    warnings.push("simplex.warnings.infeasible");
   }
 
   return {

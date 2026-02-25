@@ -30,6 +30,10 @@ export type SimplexSolution = {
   z: number;
 };
 
+export type TranslatableMessage =
+  | string
+  | { key: string; params?: Record<string, number | string> };
+
 export type SimplexSession = {
   kind: "simplex";
   createdAt: string;
@@ -39,6 +43,6 @@ export type SimplexSession = {
   steps: SimplexStep[];
   cursor: number;
   solution: SimplexSolution | null;
-  warnings: string[];
+  warnings: TranslatableMessage[];
 };
 

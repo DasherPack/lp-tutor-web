@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { useTranslation } from "@/lib/i18n";
 import {
   Chart as ChartJS,
   type ChartData,
@@ -88,6 +89,7 @@ export function FeasibleChart(props: {
     objectiveValue,
     sense = "max",
   } = props;
+  const { t } = useTranslation();
 
   const data = useMemo((): ChartData<"line", Point2D[], unknown> => {
     const polygon =
@@ -105,9 +107,14 @@ export function FeasibleChart(props: {
     const Ymin = yMin - pad;
     const Ymax = yMax + pad;
 
+    const feasibleLabel = t("graphical.feasibleRegion");
+    const objectiveLabel = t("graphical.objectiveLine");
+    const improvementLabel = t("graphical.improvementDir");
+    const optimalLabel = t("graphical.optimal");
+
     const datasets: ChartData<"line", Point2D[], unknown>["datasets"] = [
       {
-        label: "Región factible",
+        label: feasibleLabel,
         data: polygon,
         parsing: false as const,
         showLine: true,
@@ -153,7 +160,7 @@ export function FeasibleChart(props: {
         Ymax,
       );
       datasets.push({
-        label: "Objetivo (z = cte)",
+        label: objectiveLabel,
         data: lineSegment,
         parsing: false as const,
         showLine: true,
@@ -175,7 +182,8 @@ export function FeasibleChart(props: {
         y: optimalPoint.y + (ny / norm) * L,
       };
       datasets.push({
-        label: "Dirección de mejora",
+        label: improvementLabel,
+        arrowDataset: true as const,
         data: [optimalPoint, arrowEnd],
         parsing: false as const,
         showLine: true,
@@ -189,7 +197,7 @@ export function FeasibleChart(props: {
 
     if (optimalPoint) {
       datasets.push({
-        label: "Óptimo",
+        label: optimalLabel,
         data: [optimalPoint],
         parsing: false as const,
         showLine: false,
@@ -208,14 +216,15 @@ export function FeasibleChart(props: {
     objectiveCoeffs,
     objectiveValue,
     sense,
+    t,
   ]);
 
   const arrowPlugin = useMemo(
     () => ({
       id: "arrowHead",
       afterDatasetsDraw(chart: ChartJS) {
-        const idx = (chart.data.datasets as { label?: string }[]).findIndex(
-          (d) => d.label === "Dirección de mejora",
+        const idx = (chart.data.datasets as { arrowDataset?: boolean }[]).findIndex(
+          (d) => d.arrowDataset === true,
         );
         if (idx < 0) return;
         const meta = chart.getDatasetMeta(idx);
@@ -257,7 +266,7 @@ export function FeasibleChart(props: {
 
   return (
     <div className="rounded-[var(--radius-lg)] border border-[var(--card-border)] bg-[var(--card)] p-4 shadow-[var(--shadow-sm)]">
-      <div className="font-heading text-sm font-semibold text-[var(--foreground)]">Plano (x₁, x₂)</div>
+      <div className="font-heading text-sm font-semibold text-[var(--foreground)]">{t("graphical.planeTitle")}</div>
       <div className="mt-3 h-[360px]">
         <Chart
           type="line"

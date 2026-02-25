@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "@/lib/i18n";
+
 import type { LPProblem } from "@/lib/lp/types";
 
 function boundStr(lower: number | null, upper: number | null, varLabel: string): string {
@@ -9,21 +11,22 @@ function boundStr(lower: number | null, upper: number | null, varLabel: string):
 }
 
 export function ProblemSummary(props: { problem: LPProblem }) {
+  const { t } = useTranslation();
   const { problem } = props;
 
   return (
     <div className="rounded-2xl border border-zinc-200 bg-white p-6">
-      <h2 className="text-sm font-semibold text-zinc-900">Resumen</h2>
+      <h2 className="text-sm font-semibold text-zinc-900">{t("summary.title")}</h2>
       <div className="mt-3 grid gap-2 text-sm text-zinc-800">
         <div>
-          <span className="font-semibold">Variables</span>: {problem.numVars}
+          <span className="font-semibold">{t("summary.variables")}</span>: {problem.numVars}
         </div>
         <div>
-          <span className="font-semibold">Cotas</span>:{" "}
+          <span className="font-semibold">{t("summary.bounds")}</span>:{" "}
           {problem.bounds
             ?.slice(0, problem.numVars)
             .map((b, i) => boundStr(b.lower, b.upper, `x${i + 1}`))
-            .join("; ") ?? "—"}
+            .join("; ") ?? t("status.dash")}
         </div>
         <div className="mt-2 rounded-xl bg-zinc-50 p-3 font-mono text-xs text-zinc-800">
           <div>

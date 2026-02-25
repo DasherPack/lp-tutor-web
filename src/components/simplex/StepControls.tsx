@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "@/lib/i18n";
+
 export function StepControls(props: {
   cursor: number;
   total: number;
@@ -9,6 +11,7 @@ export function StepControls(props: {
   onLast: () => void;
   disabled?: boolean;
 }) {
+  const { t } = useTranslation();
   const { cursor, total, onFirst, onPrev, onNext, onLast, disabled } = props;
   const atStart = cursor <= 0;
   const atEnd = cursor >= total - 1;
@@ -16,8 +19,13 @@ export function StepControls(props: {
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-zinc-200 bg-white p-4">
       <div className="text-sm text-zinc-700">
-        Paso <span className="font-semibold text-zinc-900">{cursor + 1}</span> de{" "}
-        <span className="font-semibold text-zinc-900">{total}</span>
+        {t("simplex.stepOf", { current: cursor + 1, total }).split(/(\d+)/).map((part, i) =>
+          /^\d+$/.test(part) ? (
+            <span key={i} className="font-semibold text-zinc-900">{part}</span>
+          ) : (
+            part
+          )
+        )}
       </div>
       <div className="flex flex-wrap items-center gap-2">
         <button
@@ -26,7 +34,7 @@ export function StepControls(props: {
           onClick={onFirst}
           disabled={disabled || atStart}
         >
-          Inicio
+          {t("simplex.first")}
         </button>
         <button
           type="button"
@@ -34,7 +42,7 @@ export function StepControls(props: {
           onClick={onPrev}
           disabled={disabled || atStart}
         >
-          Anterior
+          {t("simplex.prev")}
         </button>
         <button
           type="button"
@@ -42,7 +50,7 @@ export function StepControls(props: {
           onClick={onNext}
           disabled={disabled || atEnd}
         >
-          Siguiente
+          {t("simplex.next")}
         </button>
         <button
           type="button"
@@ -50,7 +58,7 @@ export function StepControls(props: {
           onClick={onLast}
           disabled={disabled || atEnd}
         >
-          Final
+          {t("simplex.last")}
         </button>
       </div>
     </div>

@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "@/lib/i18n";
+
 import type { Pivot, Tableau } from "@/lib/lp/simplex/types";
 
 function fmt(x: number): string {
@@ -15,6 +17,7 @@ export function TableauView(props: {
   basis: number[];
   pivot: Pivot | null;
 }) {
+  const { t } = useTranslation();
   const { tableau, varNames, basis, pivot } = props;
   const m = tableau.length - 1;
   const lastCol = tableau[0]?.length ? tableau[0].length - 1 : 0;
@@ -22,11 +25,11 @@ export function TableauView(props: {
 
   return (
     <div className="overflow-x-auto rounded-[var(--radius-lg)] border border-[var(--card-border)] bg-[var(--card)] p-4 shadow-[var(--shadow-sm)]">
-      <div className="font-heading text-sm font-semibold text-[var(--foreground)]">Tableau</div>
+      <div className="font-heading text-sm font-semibold text-[var(--foreground)]">{t("simplex.tableauTitle")}</div>
       <table className="mt-3 w-full border-collapse text-xs font-mono">
         <thead>
           <tr className="text-left text-[var(--muted)]">
-            <th className="border-b-2 border-[var(--card-border)] bg-[var(--muted-bg)] px-2 py-2 font-semibold">Base</th>
+            <th className="border-b-2 border-[var(--card-border)] bg-[var(--muted-bg)] px-2 py-2 font-semibold">{t("simplex.base")}</th>
             {varNames.map((v, j) => (
               <th
                 key={j}
@@ -35,7 +38,7 @@ export function TableauView(props: {
                 {v}
               </th>
             ))}
-            <th className="border-b-2 border-[var(--card-border)] bg-[var(--muted-bg)] px-2 py-2">RHS</th>
+            <th className="border-b-2 border-[var(--card-border)] bg-[var(--muted-bg)] px-2 py-2">{t("simplex.rhs")}</th>
           </tr>
         </thead>
         <tbody>

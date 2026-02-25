@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/lib/seo/site";
+import { GraphicalHeader } from "@/components/graph/GraphicalHeader";
 
 const baseUrl = siteConfig.baseUrl ?? "https://lp-tutor.example.com";
 
@@ -54,22 +55,7 @@ export default function GraphicalLayout({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(graphicalJsonLd) }}
       />
       <article aria-labelledby="graphical-heading">
-        <header className="mb-4">
-          <h1
-            id="graphical-heading"
-            className="font-heading text-2xl font-semibold tracking-tight text-[var(--foreground)]"
-          >
-            Método gráfico 2D para programación lineal
-          </h1>
-          <p className="mt-2 text-sm text-[var(--muted)] max-w-3xl leading-relaxed">
-            El <strong>método gráfico</strong> permite resolver problemas de programación
-            lineal con <strong>dos variables</strong>: cada restricción define un semiplano,
-            la intersección de todos es la <strong>región factible</strong> (un polígono).
-            El óptimo se alcanza en uno de los <strong>vértices</strong> del polígono; se
-            evalúa la función objetivo en cada vértice y se toma el máximo o el mínimo según
-            el sentido del problema.
-          </p>
-        </header>
+        <GraphicalHeader />
         {children}
       </article>
     </>

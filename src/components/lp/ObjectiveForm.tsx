@@ -2,6 +2,7 @@
 
 import type { ObjectiveSense } from "@/lib/lp/types";
 import { NumberInput } from "@/components/lp/NumberInput";
+import { useTranslation } from "@/lib/i18n";
 
 export function ObjectiveForm(props: {
   sense: ObjectiveSense;
@@ -9,21 +10,22 @@ export function ObjectiveForm(props: {
   onChange: (next: { sense: ObjectiveSense; c: number[] }) => void;
   disabled?: boolean;
 }) {
+  const { t } = useTranslation();
   const { sense, c, onChange, disabled } = props;
 
   return (
     <div className="grid gap-3">
       <div className="flex items-center justify-between gap-4">
-        <h2 className="font-heading text-sm font-semibold text-[var(--foreground)]">Función objetivo</h2>
+        <h2 className="font-heading text-sm font-semibold text-[var(--foreground)]">{t("objective.title")}</h2>
         <select
           className="rounded-[var(--radius)] border border-[var(--card-border)] bg-[var(--card)] px-2 py-1 text-sm"
           value={sense}
           onChange={(e) => onChange({ sense: e.target.value as ObjectiveSense, c })}
           disabled={disabled}
-          aria-label="Sentido de optimización"
+          aria-label={t("objective.sense")}
         >
-          <option value="max">Maximizar</option>
-          <option value="min">Minimizar</option>
+          <option value="max">{t("objective.max")}</option>
+          <option value="min">{t("objective.min")}</option>
         </select>
       </div>
 

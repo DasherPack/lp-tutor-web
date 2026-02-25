@@ -9,8 +9,9 @@ import type { SimplexSession } from "@/lib/lp/simplex/types";
 import type { GraphicalRunResult } from "@/store/problemStore";
 import { ProblemEditor } from "@/components/lp/ProblemEditor";
 import { SimplexStackView } from "@/components/simplex/SimplexStackView";
-
 import { ResultSection } from "@/components/lp/ResultSection";
+import { useTranslation } from "@/lib/i18n";
+import { translateMessage } from "@/lib/i18n/translateMessage";
 
 /** Chart.js usa canvas; cargar solo en cliente para evitar errores SSR */
 const FeasibleChart = dynamic(
@@ -19,6 +20,7 @@ const FeasibleChart = dynamic(
 );
 
 export function MainFlow() {
+  const { t } = useTranslation();
   const problem = useProblemStore((s) => s.problem);
   const setGraphical = useProblemStore((s) => s.setGraphical);
   const setSimplex = useProblemStore((s) => s.setSimplex);
@@ -63,7 +65,7 @@ export function MainFlow() {
         vertices: [],
         optimalPoint: null,
         objectiveValue: null,
-        warnings: [err instanceof Error ? err.message : "Error en método gráfico."],
+        warnings: [err instanceof Error ? err.message : "mainFlow.errorGraphical"],
       };
     }
 
@@ -85,7 +87,7 @@ export function MainFlow() {
         steps: [],
         cursor: 0,
         solution: null,
-        warnings: [err instanceof Error ? err.message : "Error al resolver Simplex."],
+        warnings: [err instanceof Error ? err.message : "mainFlow.errorSimplex"],
       };
     }
 
@@ -114,19 +116,17 @@ export function MainFlow() {
     <div className="grid gap-10">
       <section>
         <h1 className="font-heading text-2xl font-semibold tracking-tight text-[var(--foreground)]">
-          Plantear el problema
+          {t("mainFlow.title")}
         </h1>
         <p className="mt-2 text-sm text-[var(--muted)] leading-relaxed">
-          Introduce la función objetivo y las restricciones. Con 2 variables se
-          mostrará la región factible y el óptimo; con más variables se usará
-          Simplex y, si aplica, la proyección sobre x₁, x₂.
+          {t("mainFlow.intro")}
         </p>
         <div className="mt-6">
           <ProblemEditor mode="simplex" />
         </div>
 
         <div className="mt-8 flex flex-wrap items-center gap-3 border-t border-[var(--card-border)] pt-6">
-          <span className="text-sm font-medium text-[var(--muted)]">Ver:</span>
+          <span className="text-sm font-medium text-[var(--muted)]">{t("common.view")}:</span>
           <div className="flex rounded-[var(--radius-lg)] border border-[var(--card-border)] bg-[var(--muted-bg)] p-0.5">
             <button
               type="button"
@@ -137,7 +137,7 @@ export function MainFlow() {
                   : "text-[var(--muted)] hover:text-[var(--foreground)]"
               }`}
             >
-              Método gráfico
+              {t("mainFlow.viewGraphical")}
             </button>
             <button
               type="button"
@@ -148,7 +148,7 @@ export function MainFlow() {
                   : "text-[var(--muted)] hover:text-[var(--foreground)]"
               }`}
             >
-              Simplex
+              {t("mainFlow.viewSimplex")}
             </button>
           </div>
         </div>
@@ -159,12 +159,10 @@ export function MainFlow() {
       {viewMode === "graphical" && canShowGraphical && (
         <section>
           <h2 className="font-heading text-lg font-semibold text-[var(--foreground)]">
-            {twoVars ? "Región factible y óptimo" : "Proyección sobre x₁, x₂"}
+            {twoVars ? t("mainFlow.regionTitle") : t("mainFlow.projectionTitle")}
           </h2>
           {hasProjection ? (
-            <p className="mt-1 text-sm text-[var(--muted)]">
-              Proyección fijando x₃ = … = xₙ = 0.
-            </p>
+            <p className="mt-1 text-sm text-[var(--muted)]">{t("mainFlow.projectionHint")}</p>
           ) : null}
           <div className="mt-4">
             {graphical.vertices.length > 0 ? (
@@ -186,10 +184,10 @@ export function MainFlow() {
               <div className="rounded-[var(--radius-lg)] border border-[var(--warning)]/30 bg-[var(--warning-bg)] p-4">
                 <p className="text-sm text-[var(--warning)]">
                   {graphical.status === "infeasible"
-                    ? "No hay región factible (el problema es infactible)."
+                    ? t("mainFlow.infeasible")
                     : hasProjection
-                      ? "La proyección sobre x₁, x₂ (x₃ = … = 0) no tiene región con área en el plano."
-                      : "No hay región factible (el problema es infactible)."}
+                      ? t("mainFlow.projectionEmpty")
+                      : t("mainFlow.infeasible")}
                 </p>
               </div>
             )}
@@ -197,7 +195,7 @@ export function MainFlow() {
           {graphical.warnings.length > 0 ? (
             <ul className="mt-2 list-disc pl-5 text-sm text-[var(--warning)]">
               {graphical.warnings.map((w, i) => (
-                <li key={i}>{w}</li>
+                <li key={i}>{t(w)}</li>
               ))}
             </ul>
           ) : null}
@@ -208,22 +206,22 @@ export function MainFlow() {
         <section>
           {!simplex ? (
             <div className="rounded-[var(--radius-lg)] border border-[var(--card-border)] bg-[var(--card)] p-6 text-[var(--muted)]">
-              Calculando Simplex…
+              {t("mainFlow.calculatingSimplex")}
             </div>
           ) : simplex.steps.length > 0 ? (
             <SimplexStackView session={simplex} />
           ) : (
             <div className="rounded-[var(--radius-lg)] border border-[var(--card-border)] bg-[var(--card)] p-6 shadow-[var(--shadow-sm)]">
               <h2 className="font-heading text-lg font-semibold text-[var(--foreground)]">
-                Método Simplex
+                {t("mainFlow.simplexTitle")}
               </h2>
               <p className="mt-2 text-sm text-[var(--muted)]">
-                Estado: <span className="font-medium text-[var(--foreground)]">{simplex.status}</span>
+                {t("mainFlow.status")}: <span className="font-medium text-[var(--foreground)]">{t(`status.${simplex.status}`)}</span>
               </p>
               {simplex.warnings.length > 0 && (
                 <ul className="mt-2 list-disc pl-5 text-sm text-[var(--warning)]">
                   {simplex.warnings.map((w, i) => (
-                    <li key={i}>{w}</li>
+                    <li key={i}>{translateMessage(w, t)}</li>
                   ))}
                 </ul>
               )}

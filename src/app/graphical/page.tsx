@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { MainFlow } from "@/components/MainFlow";
+import { useTranslation } from "@/lib/i18n";
 
 export default function GraphicalPage() {
+  const { t } = useTranslation();
   return (
     <div className="grid gap-6">
       <div className="flex items-center justify-between gap-4">
@@ -11,7 +13,7 @@ export default function GraphicalPage() {
           href="/"
           className="text-sm font-semibold text-[var(--primary)] underline underline-offset-4 hover:text-[var(--primary-hover)]"
         >
-          ← Volver al inicio
+          {t("common.backHome")}
         </Link>
       </div>
       <MainFlow />

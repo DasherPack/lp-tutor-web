@@ -58,7 +58,7 @@ export function solveGraphical2D(problem: LPProblem): Graphical2DResult {
       vertices: [],
       optimalPoint: null,
       objectiveValue: null,
-      warnings: ["El método gráfico requiere exactamente 2 variables."],
+      warnings: ["graphical.warnings.requires2Vars"],
       debug: { R: 0, halfPlanes: [] },
     };
   }
@@ -70,7 +70,7 @@ export function solveGraphical2D(problem: LPProblem): Graphical2DResult {
       vertices: [],
       optimalPoint: null,
       objectiveValue: null,
-      warnings: ["La función objetivo no es válida."],
+      warnings: ["graphical.warnings.invalidObjective"],
       debug: { R: 0, halfPlanes: [] },
     };
   }
@@ -98,7 +98,7 @@ export function solveGraphical2D(problem: LPProblem): Graphical2DResult {
         vertices: [],
         optimalPoint: null,
         objectiveValue: null,
-        warnings: ["Alguna restricción no es válida (coeficientes o b)."],
+        warnings: ["graphical.warnings.invalidConstraint"],
         debug: { R: 0, halfPlanes: [] },
       };
     }
@@ -153,9 +153,7 @@ export function solveGraphical2D(problem: LPProblem): Graphical2DResult {
     (b0.lower == null && closedPoly.some((p) => Math.abs(p.x - xMin) < 1e-6)) ||
     (b1.lower == null && closedPoly.some((p) => Math.abs(p.y - yMin) < 1e-6));
   if (touchesBoundary) {
-    warnings.push(
-      "La región toca el borde artificial del recorte. Podría ser no acotada (aumenta el rango o valida con Simplex).",
-    );
+    warnings.push("graphical.warnings.touchesBoundary");
   }
 
   let bestPoint: Point2D | null = null;
@@ -243,10 +241,7 @@ export function solveGraphical2DProjected(problem: LPProblem): Graphical2DResult
   const result = solveGraphical2D(projected);
   return {
     ...result,
-    warnings: [
-      "Proyección sobre x₁, x₂ (resto de variables = 0).",
-      ...result.warnings,
-    ],
+    warnings: ["graphical.warnings.projection", ...result.warnings],
   };
 }
 

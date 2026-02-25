@@ -1,0 +1,166 @@
+{
+  "common": {
+    "nav": {
+      "graphical": "Método gráfico 2D",
+      "simplex": "Simplex tabular",
+      "main": "Principal"
+    },
+    "backHome": "← Volver al inicio",
+    "view": "Ver"
+  },
+  "layout": {
+    "footer": "Herramienta educativa de programación lineal. Método gráfico y Simplex paso a paso."
+  },
+  "home": {
+    "title": "Calculadora de programación lineal",
+    "description": "Herramienta educativa para resolver problemas de optimización lineal con el <strong>método Simplex</strong> (paso a paso) y el <strong>método gráfico</strong> en 2D.",
+    "simplexLink": "Método Simplex paso a paso",
+    "simplexDesc": "— Tableau, Big-M, pivoteo y detección de óptimo, infactibilidad o no acotación.",
+    "graphicalLink": "Método gráfico 2D",
+    "graphicalDesc": "— Región factible, vértices y punto óptimo para problemas con dos variables."
+  },
+  "mainFlow": {
+    "title": "Plantear el problema",
+    "intro": "Introduce la función objetivo y las restricciones. Con 2 variables se mostrará la región factible y el óptimo; con más variables se usará Simplex y, si aplica, la proyección sobre x₁, x₂.",
+    "viewGraphical": "Método gráfico",
+    "viewSimplex": "Simplex",
+    "regionTitle": "Región factible y óptimo",
+    "projectionTitle": "Proyección sobre x₁, x₂",
+    "projectionHint": "Proyección fijando x₃ = … = xₙ = 0.",
+    "infeasible": "No hay región factible (el problema es infactible).",
+    "projectionEmpty": "La proyección sobre x₁, x₂ (x₃ = … = 0) no tiene región con área en el plano.",
+    "calculatingSimplex": "Calculando Simplex…",
+    "simplexTitle": "Método Simplex",
+    "status": "Estado",
+    "errorGraphical": "Error en método gráfico.",
+    "errorSimplex": "Error al resolver Simplex."
+  },
+  "editor": {
+    "title": "Editor del problema",
+    "hint": "Editar con el formulario y aplicar.",
+    "applyHint": "Usa \"Aplicar cambios\" para crear un snapshot (undo/redo).",
+    "undo": "Deshacer",
+    "redo": "Rehacer",
+    "reset": "Reiniciar",
+    "apply": "Aplicar",
+    "applyChanges": "Aplicar cambios",
+    "numVars": "Número de variables",
+    "numVarsShort": "Nº variables",
+    "invalidInput": "Entrada inválida.",
+    "graphical2DWarning": "El módulo gráfico es 2D. Ajusta el número de variables a 2 para poder graficar."
+  },
+  "validation": {
+    "objectiveCoeffs": "La función objetivo debe tener un coeficiente por variable.",
+    "minConstraints": "Añade al menos una restricción.",
+    "constraintCoeffs": "La restricción {{i}} debe tener {{n}} coeficientes.",
+    "boundsCount": "Debe haber tantas cotas como variables.",
+    "boundsOrder": "En x{{i}}: la cota inferior no puede ser mayor que la superior."
+  },
+  "objective": {
+    "title": "Función objetivo",
+    "sense": "Sentido",
+    "max": "Maximizar",
+    "min": "Minimizar"
+  },
+  "constraints": {
+    "title": "Restricciones",
+    "add": "Añadir restricción",
+    "remove": "Eliminar"
+  },
+  "bounds": {
+    "title": "Cotas por variable",
+    "hint": "Forma a ≤ xᵢ ≤ b. Dejar vacío = sin cota (∞ o −∞). Por defecto: 0 ≤ xᵢ.",
+    "lower": "Cota inferior x{{i}}",
+    "upper": "Cota superior x{{i}}",
+    "placeholderLower": "0",
+    "placeholderUpper": "∞"
+  },
+  "summary": {
+    "title": "Resumen",
+    "variables": "Variables",
+    "bounds": "Cotas",
+    "objective": "Objetivo",
+    "constraints": "Restricciones",
+    "defaultBounds": "Por defecto (no negatividad)"
+  },
+  "result": {
+    "title": "Resultado",
+    "status": "Estado",
+    "optimalValue": "Valor óptimo",
+    "solution": "Solución",
+    "solution2D": "Solución (2D)",
+    "infeasible": "El problema no tiene solución factible.",
+    "unbounded": "El problema es no acotado."
+  },
+  "simplex": {
+    "runTitle": "Ejecutar Simplex",
+    "runHint": "Construye el tableau (Big‑M) y genera pasos iterativos.",
+    "generateSteps": "Generar iteraciones",
+    "maxIterations": "Máx. iteraciones",
+    "blandRule": "Regla de Bland",
+    "status": "Estado",
+    "generateHint": "Genera iteraciones para ver el tableau paso a paso.",
+    "tableauTitle": "Tableau",
+    "base": "Base",
+    "rhs": "RHS",
+    "operationsTitle": "Operaciones",
+    "noOperations": "Sin operaciones.",
+    "explanationTitle": "Explicación",
+    "pivotInfo": "Pivote: fila {{row}}, columna {{col}} ({{entering}} entra, {{leaving}} sale)",
+    "stepOf": "Paso {{current}} de {{total}}",
+    "first": "Inicio",
+    "prev": "Anterior",
+    "next": "Siguiente",
+    "last": "Final",
+    "allIterations": "Método Simplex — Todas las iteraciones",
+    "iteration": "Iteración {{n}}",
+    "pageTitle": "Método Simplex tabular para programación lineal",
+    "pageIntro": "El <strong>método Simplex</strong> resuelve problemas de programación lineal en forma estándar mediante un <strong>tableau</strong>: primero se añaden variables de holgura (≤), surplus y artificiales (≥, =) con penalización <strong>Big-M</strong>; luego se itera eligiendo la columna entrante por coste reducido más negativo y la fila saliente por la <strong>razón mínima</strong>, y se aplica <strong>pivoteo</strong> (Gauss-Jordan) hasta alcanzar optimalidad o detectar infactibilidad o no acotación.",
+    "whatIsTitle": "¿Qué es el método Simplex?",
+    "whatIsP1": "El <strong>método Simplex</strong> es un algoritmo para resolver problemas de programación lineal. Fue desarrollado por <strong>George Dantzig</strong> y consiste en ir moviéndose por vértices de la región factible (en el espacio de variables) mejorando el valor de la función objetivo en cada paso hasta llegar al óptimo o detectar que el problema es no acotado o infactible.",
+    "whatIsP2": "<strong>Forma estándar.</strong> El Simplex trabaja con problemas en forma estándar: maximización (o minimización convertida a max), restricciones de igualdad y variables no negativas. Las desigualdades se transforman usando <strong>variables de holgura</strong> (≤), <strong>surplus</strong> y <strong>variables artificiales</strong> (≥ y =).",
+    "whatIsP3": "<strong>Método Big-M.</strong> Cuando hay restricciones ≥ o =, se añaden variables artificiales y se penalizan en la función objetivo con un coeficiente -M (en maximización) para que salgan de la base; así se obtiene una base factible inicial o se detecta infactibilidad.",
+    "whatIsP4": "<strong>Tableau y pivoteo.</strong> El algoritmo se aplica sobre un <strong>tableau</strong> (tabla) que representa el sistema en forma canónica respecto a la base actual. En cada iteración se elige una variable entrante (por <strong>coste reducido</strong> más negativo) y una variable saliente (por la regla de la <strong>razón mínima</strong>), y se realiza un pivoteo tipo Gauss-Jordan. El proceso termina cuando no hay costes reducidos negativos (óptimo), cuando no hay fila saliente (no acotado) o cuando permanecen variables artificiales en la base (infactible).",
+    "explanations": {
+      "initialTableau": "Tabla inicial (forma estándar + Big‑M) y canonicalización respecto a la base inicial.",
+      "pivotStep": "Pivoteo Gauss‑Jordan: normaliza la fila pivote y anula la columna pivote en el resto de filas (equivalente a aplicar una transformación elemental).",
+      "unbounded": "No hay fila saliente (test de razón mínima falla): el problema es no acotado."
+    },
+    "warnings": {
+      "invalidProblem": "El problema no es válido o no se pudo estandarizar.",
+      "iterationLimit": "Se alcanzó el límite de iteraciones ({{max}}). Ajusta el límite o revisa degeneración.",
+      "infeasible": "Big‑M detecta artificiales positivas al terminar: el sistema no tiene solución factible."
+    }
+  },
+  "graphical": {
+    "pageTitle": "Método gráfico 2D para programación lineal",
+    "pageIntro": "El <strong>método gráfico</strong> permite resolver problemas de programación lineal con <strong>dos variables</strong>: cada restricción define un semiplano, la intersección de todos es la <strong>región factible</strong> (un polígono). El óptimo se alcanza en uno de los <strong>vértices</strong> del polígono; se evalúa la función objetivo en cada vértice y se toma el máximo o el mínimo según el sentido del problema.",
+    "planeTitle": "Plano (x₁, x₂)",
+    "feasibleRegion": "Región factible",
+    "objectiveLine": "Objetivo (z = cte)",
+    "improvementDir": "Dirección de mejora",
+    "optimal": "Óptimo",
+    "warnings": {
+      "requires2Vars": "El método gráfico requiere exactamente 2 variables.",
+      "invalidObjective": "La función objetivo no es válida.",
+      "invalidConstraint": "Alguna restricción no es válida (coeficientes o b).",
+      "touchesBoundary": "La región toca el borde artificial del recorte. Podría ser no acotada (aumenta el rango o valida con Simplex).",
+      "projection": "Proyección sobre x₁, x₂ (resto de variables = 0)."
+    }
+  },
+  "status": {
+    "optimal": "Óptimo",
+    "infeasible": "Infactible",
+    "unbounded": "No acotado",
+    "invalid": "Inválido",
+    "iteration_limit": "Límite de iteraciones",
+    "ok": "OK",
+    "maybe_unbounded": "Posible no acotado",
+    "dash": "—"
+  },
+  "history": {
+    "initial": "Inicial",
+    "reset": "Reiniciar",
+    "edit": "Editar"
+  }
+}
