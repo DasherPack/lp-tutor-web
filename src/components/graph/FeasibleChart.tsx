@@ -183,7 +183,6 @@ export function FeasibleChart(props: {
       };
       datasets.push({
         label: improvementLabel,
-        arrowDataset: true as const,
         data: [optimalPoint, arrowEnd],
         parsing: false as const,
         showLine: true,
@@ -223,8 +222,8 @@ export function FeasibleChart(props: {
     () => ({
       id: "arrowHead",
       afterDatasetsDraw(chart: ChartJS) {
-        const idx = (chart.data.datasets as { arrowDataset?: boolean }[]).findIndex(
-          (d) => d.arrowDataset === true,
+        const idx = chart.data.datasets.findIndex(
+          (d) => Array.isArray(d.data) && d.data.length === 2 && (d as { pointRadius?: unknown }).pointRadius?.[0] === 0,
         );
         if (idx < 0) return;
         const meta = chart.getDatasetMeta(idx);
