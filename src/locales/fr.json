@@ -46,6 +46,7 @@
     "applyChanges": "Appliquer les modifications",
     "numVars": "Nombre de variables",
     "numVarsShort": "Nº variables",
+    "numVarsEnterHint": "Appuyez sur Entrée ou cliquez à l'extérieur pour actualiser.",
     "invalidInput": "Entrée invalide.",
     "graphical2DWarning": "Le module graphique est 2D. Réglez le nombre de variables à 2 pour afficher le graphe."
   },
@@ -137,6 +138,7 @@
     "pageIntro": "La <strong>méthode graphique</strong> permet de résoudre les problèmes de programmation linéaire à <strong>deux variables</strong> : chaque contrainte définit un demi-plan, l'intersection de tous forme la <strong>région réalisable</strong> (un polygone). L'optimum est atteint en un des <strong>sommets</strong> du polygone ; on évalue la fonction objectif à chaque sommet et on prend le maximum ou le minimum selon le sens du problème.",
     "planeTitle": "Plan (x₁, x₂)",
     "feasibleRegion": "Région réalisable",
+    "extendsToInfinity": "S'étend à l'infini",
     "objectiveLine": "Objectif (z = cte)",
     "improvementDir": "Direction d'amélioration",
     "optimal": "Optimum",

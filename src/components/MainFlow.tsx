@@ -55,6 +55,7 @@ export function MainFlow() {
           optimalPoint: graphResult.optimalPoint,
           objectiveValue: graphResult.objectiveValue,
           warnings: graphResult.warnings,
+          escapingRays: graphResult.escapingRays ?? [],
         };
       }
     } catch (err) {
@@ -66,6 +67,7 @@ export function MainFlow() {
         optimalPoint: null,
         objectiveValue: null,
         warnings: [err instanceof Error ? err.message : "mainFlow.errorGraphical"],
+        escapingRays: [],
       };
     }
 
@@ -168,6 +170,7 @@ export function MainFlow() {
             {graphical.vertices.length > 0 ? (
               <FeasibleChart
                 vertices={graphical.vertices}
+                escapingRays={graphical.escapingRays ?? []}
                 optimalPoint={graphical.optimalPoint}
                 objectiveCoeffs={
                   problem.numVars >= 2

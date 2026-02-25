@@ -46,6 +46,7 @@
     "applyChanges": "Apply changes",
     "numVars": "Number of variables",
     "numVarsShort": "No. variables",
+    "numVarsEnterHint": "Press Enter or click outside to update.",
     "invalidInput": "Invalid input.",
     "graphical2DWarning": "The graphical module is 2D. Set the number of variables to 2 to graph."
   },
@@ -137,6 +138,7 @@
     "pageIntro": "The <strong>graphical method</strong> allows solving linear programming problems with <strong>two variables</strong>: each constraint defines a half-plane, the intersection of all of them is the <strong>feasible region</strong> (a polygon). The optimum is reached at one of the <strong>vertices</strong> of the polygon; the objective function is evaluated at each vertex and the maximum or minimum is taken according to the problem's sense.",
     "planeTitle": "Plane (x₁, x₂)",
     "feasibleRegion": "Feasible region",
+    "extendsToInfinity": "Extends to infinity",
     "objectiveLine": "Objective (z = const)",
     "improvementDir": "Improvement direction",
     "optimal": "Optimum",

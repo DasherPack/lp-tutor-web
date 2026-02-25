@@ -12,6 +12,8 @@ export type ProblemSnapshot = {
   label?: string;
 };
 
+export type EscapingRay = { start: Point2D; direction: Point2D };
+
 export type GraphicalRunResult = {
   kind: "graphical2d";
   createdAt: string;
@@ -20,6 +22,7 @@ export type GraphicalRunResult = {
   objectiveValue: number | null;
   optimalPoint: Point2D | null;
   warnings: string[];
+  escapingRays: EscapingRay[];
 };
 
 export type ProblemState = {

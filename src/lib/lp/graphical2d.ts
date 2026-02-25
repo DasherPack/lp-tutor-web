@@ -4,12 +4,16 @@ import { EPS } from "@/lib/lp/types";
 export type Point2D = { x: number; y: number };
 export type HalfPlane = { a: number; b: number; c: number }; // a*x + b*y <= c
 
+export type EscapingRay = { start: Point2D; direction: Point2D };
+
 export type Graphical2DResult = {
   status: "ok" | "infeasible" | "maybe_unbounded" | "invalid";
   vertices: Point2D[];
   optimalPoint: Point2D | null;
   objectiveValue: number | null;
   warnings: string[];
+  /** Rayos que indican que la región se extiende hacia infinito (cuando touchesBoundary). */
+  escapingRays: EscapingRay[];
   debug: {
     R: number;
     halfPlanes: HalfPlane[];
@@ -59,6 +63,7 @@ export function solveGraphical2D(problem: LPProblem): Graphical2DResult {
       optimalPoint: null,
       objectiveValue: null,
       warnings: ["graphical.warnings.requires2Vars"],
+      escapingRays: [],
       debug: { R: 0, halfPlanes: [] },
     };
   }
@@ -71,6 +76,7 @@ export function solveGraphical2D(problem: LPProblem): Graphical2DResult {
       optimalPoint: null,
       objectiveValue: null,
       warnings: ["graphical.warnings.invalidObjective"],
+      escapingRays: [],
       debug: { R: 0, halfPlanes: [] },
     };
   }
@@ -99,6 +105,7 @@ export function solveGraphical2D(problem: LPProblem): Graphical2DResult {
         optimalPoint: null,
         objectiveValue: null,
         warnings: ["graphical.warnings.invalidConstraint"],
+        escapingRays: [],
         debug: { R: 0, halfPlanes: [] },
       };
     }
@@ -141,12 +148,13 @@ export function solveGraphical2D(problem: LPProblem): Graphical2DResult {
         optimalPoint: null,
         objectiveValue: null,
         warnings: [],
+        escapingRays: [],
         debug: { R, halfPlanes },
       };
     }
   }
 
-  const closedPoly = dedupeClosePoints(poly);
+  const closedPoly = orderPolygonVerticesCCW(dedupeClosePoints(poly));
   const touchesBoundary =
     (b0.upper == null && closedPoly.some((p) => Math.abs(p.x - xMax) < 1e-6)) ||
     (b1.upper == null && closedPoly.some((p) => Math.abs(p.y - yMax) < 1e-6)) ||
@@ -155,6 +163,10 @@ export function solveGraphical2D(problem: LPProblem): Graphical2DResult {
   if (touchesBoundary) {
     warnings.push("graphical.warnings.touchesBoundary");
   }
+
+  const escapingRays = touchesBoundary
+    ? computeEscapingRays(closedPoly, xMin, xMax, yMin, yMax, b0, b1)
+    : [];
 
   let bestPoint: Point2D | null = null;
   let bestVal = 0;
@@ -177,8 +189,51 @@ export function solveGraphical2D(problem: LPProblem): Graphical2DResult {
     optimalPoint: bestPoint,
     objectiveValue: bestPoint ? bestVal : null,
     warnings,
+    escapingRays,
     debug: { R, halfPlanes },
   };
+}
+
+const TOL = 1e-6;
+type B = { lower: number | null; upper: number | null };
+
+function computeEscapingRays(
+  poly: Point2D[],
+  xMin: number,
+  xMax: number,
+  yMin: number,
+  yMax: number,
+  b0: B,
+  b1: B,
+): EscapingRay[] {
+  const rays: EscapingRay[] = [];
+  const span = Math.max(xMax - xMin, yMax - yMin);
+  const L = span * 0.4;
+
+  for (let i = 0; i < poly.length; i++) {
+    const a = poly[i]!;
+    const b = poly[(i + 1) % poly.length]!;
+    const mx = (a.x + b.x) / 2;
+    const my = (a.y + b.y) / 2;
+
+    if (b0.upper == null && Math.abs(a.x - xMax) < TOL && Math.abs(b.x - xMax) < TOL) {
+      rays.push({ start: { x: mx, y: my }, direction: { x: 1, y: 0 } });
+    }
+    if (b0.lower == null && Math.abs(a.x - xMin) < TOL && Math.abs(b.x - xMin) < TOL) {
+      rays.push({ start: { x: mx, y: my }, direction: { x: -1, y: 0 } });
+    }
+    if (b1.upper == null && Math.abs(a.y - yMax) < TOL && Math.abs(b.y - yMax) < TOL) {
+      rays.push({ start: { x: mx, y: my }, direction: { x: 0, y: 1 } });
+    }
+    if (b1.lower == null && Math.abs(a.y - yMin) < TOL && Math.abs(b.y - yMin) < TOL) {
+      rays.push({ start: { x: mx, y: my }, direction: { x: 0, y: -1 } });
+    }
+  }
+
+  return rays.map((r) => ({
+    start: r.start,
+    direction: { x: r.direction.x * L, y: r.direction.y * L },
+  }));
 }
 
 function chooseBoundingR(halfPlanes: HalfPlane[]): number {
@@ -263,5 +318,14 @@ function dedupeClosePoints(points: Point2D[]): Point2D[] {
     if (d2 <= 1e-18) out.pop();
   }
   return out;
+}
+
+/** Ordena vértices por ángulo alrededor del centroide (sentido antihorario) para
+ *  relleno correcto en Chart.js cuando clipPolygon devuelve orden inconsistente. */
+function orderPolygonVerticesCCW(points: Point2D[]): Point2D[] {
+  if (points.length < 3) return points;
+  const cx = points.reduce((s, p) => s + p.x, 0) / points.length;
+  const cy = points.reduce((s, p) => s + p.y, 0) / points.length;
+  return [...points].sort((a, b) => Math.atan2(a.y - cy, a.x - cx) - Math.atan2(b.y - cy, b.x - cx));
 }
 

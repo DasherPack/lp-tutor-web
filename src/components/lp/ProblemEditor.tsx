@@ -248,6 +248,7 @@ function ProblemEditorInner(props: {
                 aria-label={t("editor.numVars")}
               />
             </label>
+            <span className="text-xs text-[var(--muted)]">{t("editor.numVarsEnterHint")}</span>
           </div>
 
           <BoundsForm

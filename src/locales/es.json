@@ -46,6 +46,7 @@
     "applyChanges": "Aplicar cambios",
     "numVars": "Número de variables",
     "numVarsShort": "Nº variables",
+    "numVarsEnterHint": "Pulsa Enter o haz clic fuera para actualizar.",
     "invalidInput": "Entrada inválida.",
     "graphical2DWarning": "El módulo gráfico es 2D. Ajusta el número de variables a 2 para poder graficar."
   },
@@ -137,6 +138,7 @@
     "pageIntro": "El <strong>método gráfico</strong> permite resolver problemas de programación lineal con <strong>dos variables</strong>: cada restricción define un semiplano, la intersección de todos es la <strong>región factible</strong> (un polígono). El óptimo se alcanza en uno de los <strong>vértices</strong> del polígono; se evalúa la función objetivo en cada vértice y se toma el máximo o el mínimo según el sentido del problema.",
     "planeTitle": "Plano (x₁, x₂)",
     "feasibleRegion": "Región factible",
+    "extendsToInfinity": "Se extiende al infinito",
     "objectiveLine": "Objetivo (z = cte)",
     "improvementDir": "Dirección de mejora",
     "optimal": "Óptimo",

@@ -27,6 +27,7 @@ ChartJS.register(
 );
 
 export type Point2D = { x: number; y: number };
+export type EscapingRay = { start: Point2D; direction: Point2D };
 
 function getObjectiveLineSegment(
   c1: number,
@@ -77,6 +78,7 @@ function getObjectiveLineSegment(
 
 export function FeasibleChart(props: {
   vertices: Point2D[];
+  escapingRays?: EscapingRay[];
   optimalPoint: Point2D | null;
   objectiveCoeffs?: [number, number];
   objectiveValue?: number | null;
@@ -84,6 +86,7 @@ export function FeasibleChart(props: {
 }) {
   const {
     vertices,
+    escapingRays = [],
     optimalPoint,
     objectiveCoeffs,
     objectiveValue,
@@ -95,8 +98,12 @@ export function FeasibleChart(props: {
     const polygon =
       vertices.length > 0 ? [...vertices, vertices[0]!] : ([] as Point2D[]);
 
-    const xVals = vertices.map((p) => p.x);
-    const yVals = vertices.map((p) => p.y);
+    const allPoints = [...vertices];
+    for (const r of escapingRays) {
+      allPoints.push(r.start, { x: r.start.x + r.direction.x, y: r.start.y + r.direction.y });
+    }
+    const xVals = allPoints.map((p) => p.x);
+    const yVals = allPoints.map((p) => p.y);
     const xMin = Math.min(0, ...xVals);
     const xMax = Math.max(1, ...xVals);
     const yMin = Math.min(0, ...yVals);
@@ -111,6 +118,7 @@ export function FeasibleChart(props: {
     const objectiveLabel = t("graphical.objectiveLine");
     const improvementLabel = t("graphical.improvementDir");
     const optimalLabel = t("graphical.optimal");
+    const extendsLabel = t("graphical.extendsToInfinity");
 
     const datasets: ChartData<"line", Point2D[], unknown>["datasets"] = [
       {
@@ -194,6 +202,22 @@ export function FeasibleChart(props: {
       });
     }
 
+    for (const r of escapingRays) {
+      const end = { x: r.start.x + r.direction.x, y: r.start.y + r.direction.y };
+      datasets.push({
+        label: extendsLabel,
+        data: [r.start, end],
+        parsing: false as const,
+        showLine: true,
+        fill: false,
+        borderColor: "rgb(30 58 95)",
+        borderDash: [8, 6],
+        borderWidth: 1.5,
+        pointRadius: [0, 0],
+        tension: 0,
+      });
+    }
+
     if (optimalPoint) {
       datasets.push({
         label: optimalLabel,
@@ -211,6 +235,7 @@ export function FeasibleChart(props: {
     return { datasets };
   }, [
     vertices,
+    escapingRays,
     optimalPoint,
     objectiveCoeffs,
     objectiveValue,
@@ -222,43 +247,44 @@ export function FeasibleChart(props: {
     () => ({
       id: "arrowHead",
       afterDatasetsDraw(chart: ChartJS) {
-        const idx = chart.data.datasets.findIndex((d) => {
+        const ctx2 = chart.ctx as CanvasRenderingContext2D;
+        for (let idx = 0; idx < chart.data.datasets.length; idx++) {
+          const d = chart.data.datasets[idx];
           const pr = (d as unknown as Record<string, unknown>).pointRadius;
-          return Array.isArray(d.data) && d.data.length === 2 && Array.isArray(pr) && pr[0] === 0;
-        });
-        if (idx < 0) return;
-        const meta = chart.getDatasetMeta(idx);
-        if (!meta?.data?.[1]) return;
-        const end = meta.data[1];
-        const start = meta.data[0];
-        if (!end || !start) return;
-        const ctx = chart.ctx;
-        const endX = end.x;
-        const endY = end.y;
-        const startX = start.x;
-        const startY = start.y;
-        const dx = endX - startX;
-        const dy = endY - startY;
-        const len = Math.sqrt(dx * dx + dy * dy) || 1;
-        const ux = dx / len;
-        const uy = dy / len;
-        const headLen = 12;
-        const ctx2 = ctx as CanvasRenderingContext2D;
-        ctx2.save();
-        ctx2.fillStyle = "rgb(87 83 78)";
-        ctx2.beginPath();
-        ctx2.moveTo(endX, endY);
-        ctx2.lineTo(
-          endX - headLen * ux - headLen * 0.4 * uy,
-          endY - headLen * uy + headLen * 0.4 * ux,
-        );
-        ctx2.lineTo(
-          endX - headLen * ux + headLen * 0.4 * uy,
-          endY - headLen * uy - headLen * 0.4 * ux,
-        );
-        ctx2.closePath();
-        ctx2.fill();
-        ctx2.restore();
+          if (!(Array.isArray(d.data) && d.data.length === 2 && Array.isArray(pr) && pr[0] === 0))
+            continue;
+          const meta = chart.getDatasetMeta(idx);
+          if (!meta?.data?.[1]) continue;
+          const end = meta.data[1];
+          const start = meta.data[0];
+          if (!end || !start) continue;
+          const endX = end.x;
+          const endY = end.y;
+          const startX = start.x;
+          const startY = start.y;
+          const dx = endX - startX;
+          const dy = endY - startY;
+          const len = Math.sqrt(dx * dx + dy * dy) || 1;
+          const ux = dx / len;
+          const uy = dy / len;
+          const headLen = 12;
+          const isEscaping = (d as unknown as Record<string, unknown>).borderDash != null;
+          ctx2.save();
+          ctx2.fillStyle = isEscaping ? "rgb(30 58 95)" : "rgb(87 83 78)";
+          ctx2.beginPath();
+          ctx2.moveTo(endX, endY);
+          ctx2.lineTo(
+            endX - headLen * ux - headLen * 0.4 * uy,
+            endY - headLen * uy + headLen * 0.4 * ux,
+          );
+          ctx2.lineTo(
+            endX - headLen * ux + headLen * 0.4 * uy,
+            endY - headLen * uy - headLen * 0.4 * ux,
+          );
+          ctx2.closePath();
+          ctx2.fill();
+          ctx2.restore();
+        }
       },
     }),
     [],
