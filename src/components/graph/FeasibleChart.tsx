@@ -223,7 +223,7 @@ export function FeasibleChart(props: {
       id: "arrowHead",
       afterDatasetsDraw(chart: ChartJS) {
         const idx = chart.data.datasets.findIndex((d) => {
-          const pr = (d as Record<string, unknown>).pointRadius;
+          const pr = (d as unknown as Record<string, unknown>).pointRadius;
           return Array.isArray(d.data) && d.data.length === 2 && Array.isArray(pr) && pr[0] === 0;
         });
         if (idx < 0) return;
