@@ -146,22 +146,27 @@ function hasInfeasibleArtificial(std: StandardForm): boolean {
   return false;
 }
 
-/** Convierte cotas de variables en restricciones explícitas (x_i ≥ l, x_i ≤ u). */
+/**
+ * Convierte cotas de variables en restricciones explícitas cuando difieren del estándar.
+ * NO añade x_i ≥ 0: el simplex asume no negatividad por defecto. Añadir x≥0 como "≥"
+ * crea surplus con coef. -1 → variable entrante con coste -M pero sin pivote válido → unbounded falso.
+ * Solo añadimos: x_i ≥ lower cuando lower > 0, y x_i ≤ upper cuando upper != null.
+ */
 function expandBoundsToConstraints(problem: LPProblem): LPProblem {
   const n = problem.numVars;
   const extra = [];
   for (let i = 0; i < n; i++) {
     const b = problem.bounds?.[i] ?? defaultBoundsForVar();
-    if (b.lower != null) {
-      const a = Array.from({ length: n }, (_, j) => (j === i ? 1 : 0));
-      extra.push({ a, op: ">=" as const, b: b.lower });
+    const lower = b.lower ?? 0;
+    const upper = b.upper;
+    const a = Array.from({ length: n }, (_, j) => (j === i ? 1 : 0));
+    if (lower > 0) {
+      extra.push({ a: [...a], op: ">=" as const, b: lower });
     }
-    if (b.upper != null) {
-      const a = Array.from({ length: n }, (_, j) => (j === i ? 1 : 0));
-      extra.push({ a, op: "<=" as const, b: b.upper });
+    if (upper != null) {
+      extra.push({ a: [...a], op: "<=" as const, b: upper });
     }
   }
-  if (extra.length === 0) return problem;
   return {
     ...problem,
     constraints: [...problem.constraints, ...extra],
