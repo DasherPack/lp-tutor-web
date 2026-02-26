@@ -9,10 +9,10 @@
     "view": "Ver"
   },
   "layout": {
-    "footer": "Herramienta educativa de programación lineal. Método gráfico y Simplex paso a paso."
+    "footer": "Herramienta educativa de programación lineal de dalsegno. Método gráfico y Simplex paso a paso."
   },
   "home": {
-    "title": "Calculadora de programación lineal",
+    "title": "dalsegno · Calculadora de programación lineal",
     "description": "Herramienta educativa para resolver problemas de optimización lineal con el <strong>método Simplex</strong> (paso a paso) y el <strong>método gráfico</strong> en 2D.",
     "simplexLink": "Método Simplex paso a paso",
     "simplexDesc": "— Tableau, Big-M, pivoteo y detección de óptimo, infactibilidad o no acotación.",
@@ -28,6 +28,7 @@
     "projectionTitle": "Proyección sobre x₁, x₂",
     "projectionHint": "Proyección fijando x₃ = … = xₙ = 0.",
     "infeasible": "No hay región factible (el problema es infactible).",
+    "unboundedGraphical": "El problema tiene solución no acotada.",
     "projectionEmpty": "La proyección sobre x₁, x₂ (x₃ = … = 0) no tiene región con área en el plano.",
     "calculatingSimplex": "Calculando Simplex…",
     "simplexTitle": "Método Simplex",
@@ -115,7 +116,7 @@
     "last": "Final",
     "allIterations": "Método Simplex — Todas las iteraciones",
     "iteration": "Iteración {{n}}",
-    "pageTitle": "Método Simplex tabular para programación lineal",
+    "pageTitle": "dalsegno · Método Simplex tabular para programación lineal",
     "pageIntro": "El <strong>método Simplex</strong> resuelve problemas de programación lineal en forma estándar mediante un <strong>tableau</strong>: primero se añaden variables de holgura (≤), surplus y artificiales (≥, =) con penalización <strong>Big-M</strong>; luego se itera eligiendo la columna entrante por coste reducido más negativo y la fila saliente por la <strong>razón mínima</strong>, y se aplica <strong>pivoteo</strong> (Gauss-Jordan) hasta alcanzar optimalidad o detectar infactibilidad o no acotación.",
     "whatIsTitle": "¿Qué es el método Simplex?",
     "whatIsP1": "El <strong>método Simplex</strong> es un algoritmo para resolver problemas de programación lineal. Fue desarrollado por <strong>George Dantzig</strong> y consiste en ir moviéndose por vértices de la región factible (en el espacio de variables) mejorando el valor de la función objetivo en cada paso hasta llegar al óptimo o detectar que el problema es no acotado o infactible.",
@@ -123,9 +124,9 @@
     "whatIsP3": "<strong>Método Big-M.</strong> Cuando hay restricciones ≥ o =, se añaden variables artificiales y se penalizan en la función objetivo con un coeficiente -M (en maximización) para que salgan de la base; así se obtiene una base factible inicial o se detecta infactibilidad.",
     "whatIsP4": "<strong>Tableau y pivoteo.</strong> El algoritmo se aplica sobre un <strong>tableau</strong> (tabla) que representa el sistema en forma canónica respecto a la base actual. En cada iteración se elige una variable entrante (por <strong>coste reducido</strong> más negativo) y una variable saliente (por la regla de la <strong>razón mínima</strong>), y se realiza un pivoteo tipo Gauss-Jordan. El proceso termina cuando no hay costes reducidos negativos (óptimo), cuando no hay fila saliente (no acotado) o cuando permanecen variables artificiales en la base (infactible).",
     "explanations": {
-      "initialTableau": "Tabla inicial (forma estándar + Big‑M) y canonicalización respecto a la base inicial.",
-      "pivotStep": "Pivoteo Gauss‑Jordan: normaliza la fila pivote y anula la columna pivote en el resto de filas (equivalente a aplicar una transformación elemental).",
-      "unbounded": "No hay fila saliente (test de razón mínima falla): el problema es no acotado."
+      "initialTableau": "Tableau en forma estándar (holgura, surplus, artificiales con Big‑M). Canonicalización: columnas básicas → identidad; z y variables básicas quedan en el RHS.",
+      "pivotStep": "Cambio de base: la entrante sustituye a la saliente. Gauss‑Jordan (pivote=1, resto de columna=0) mantiene forma canónica; pasamos a un nuevo vértice y z mejora.",
+      "unbounded": "Columna entrante con todos los coeficientes ≤ 0: no hay ratio mínimo. La variable puede crecer sin límite → z → +∞ (problema no acotado)."
     },
     "warnings": {
       "invalidProblem": "El problema no es válido o no se pudo estandarizar.",
@@ -134,7 +135,7 @@
     }
   },
   "graphical": {
-    "pageTitle": "Método gráfico 2D para programación lineal",
+    "pageTitle": "dalsegno · Método gráfico 2D para programación lineal",
     "pageIntro": "El <strong>método gráfico</strong> permite resolver problemas de programación lineal con <strong>dos variables</strong>: cada restricción define un semiplano, la intersección de todos es la <strong>región factible</strong> (un polígono). El óptimo se alcanza en uno de los <strong>vértices</strong> del polígono; se evalúa la función objetivo en cada vértice y se toma el máximo o el mínimo según el sentido del problema.",
     "planeTitle": "Plano (x₁, x₂)",
     "feasibleRegion": "Región factible",

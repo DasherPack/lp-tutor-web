@@ -46,6 +46,9 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.shortDescription,
   },
+  icons: {
+    icon: "/favicon.ico",
+  },
   robots: {
     index: true,
     follow: true,

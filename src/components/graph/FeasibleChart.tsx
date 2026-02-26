@@ -94,10 +94,7 @@ export function FeasibleChart(props: {
   } = props;
   const { t } = useTranslation();
 
-  const data = useMemo((): ChartData<"line", Point2D[], unknown> => {
-    const polygon =
-      vertices.length > 0 ? [...vertices, vertices[0]!] : ([] as Point2D[]);
-
+  const scaleBounds = useMemo(() => {
     const allPoints = [...vertices];
     for (const r of escapingRays) {
       allPoints.push(r.start, { x: r.start.x + r.direction.x, y: r.start.y + r.direction.y });
@@ -109,14 +106,24 @@ export function FeasibleChart(props: {
     const yMin = Math.min(0, ...yVals);
     const yMax = Math.max(1, ...yVals);
     const pad = Math.max((xMax - xMin) * 0.1, (yMax - yMin) * 0.1, 0.5);
-    const Xmin = xMin - pad;
-    const Xmax = xMax + pad;
-    const Ymin = yMin - pad;
-    const Ymax = yMax + pad;
+    const range = Math.max(xMax - xMin, yMax - yMin, 1) + 2 * pad;
+    const cx = (xMin + xMax) / 2;
+    const cy = (yMin + yMax) / 2;
+    return { minX: cx - range / 2, maxX: cx + range / 2, minY: cy - range / 2, maxY: cy + range / 2 };
+  }, [vertices, escapingRays]);
+
+  const data = useMemo((): ChartData<"line", Point2D[], unknown> => {
+    const polygon =
+      vertices.length > 0 ? [...vertices, vertices[0]!] : ([] as Point2D[]);
+
+    const allPoints = [...vertices];
+    for (const r of escapingRays) {
+      allPoints.push(r.start, { x: r.start.x + r.direction.x, y: r.start.y + r.direction.y });
+    }
+    const { minX: Xmin, maxX: Xmax, minY: Ymin, maxY: Ymax } = scaleBounds;
 
     const feasibleLabel = t("graphical.feasibleRegion");
     const objectiveLabel = t("graphical.objectiveLine");
-    const improvementLabel = t("graphical.improvementDir");
     const optimalLabel = t("graphical.optimal");
     const extendsLabel = t("graphical.extendsToInfinity");
 
@@ -179,27 +186,6 @@ export function FeasibleChart(props: {
         pointRadius: 0,
         tension: 0,
       });
-
-      const dir = sense === "max" ? 1 : -1;
-      const nx = c1 * dir;
-      const ny = c2 * dir;
-      const norm = Math.sqrt(nx * nx + ny * ny) || 1;
-      const L = Math.min(Xmax - Xmin, Ymax - Ymin) * 0.2;
-      const arrowEnd: Point2D = {
-        x: optimalPoint.x + (nx / norm) * L,
-        y: optimalPoint.y + (ny / norm) * L,
-      };
-      datasets.push({
-        label: improvementLabel,
-        data: [optimalPoint, arrowEnd],
-        parsing: false as const,
-        showLine: true,
-        fill: false,
-        borderColor: "rgb(87 83 78)",
-        borderWidth: 1.5,
-        pointRadius: [0, 0],
-        tension: 0,
-      });
     }
 
     for (const r of escapingRays) {
@@ -240,6 +226,7 @@ export function FeasibleChart(props: {
     objectiveCoeffs,
     objectiveValue,
     sense,
+    scaleBounds,
     t,
   ]);
 
@@ -311,11 +298,15 @@ export function FeasibleChart(props: {
                 type: "linear",
                 title: { display: true, text: "x₁" },
                 grid: { color: "rgba(0,0,0,0.06)" },
+                min: scaleBounds.minX,
+                max: scaleBounds.maxX,
               },
               y: {
                 type: "linear",
                 title: { display: true, text: "x₂" },
                 grid: { color: "rgba(0,0,0,0.06)" },
+                min: scaleBounds.minY,
+                max: scaleBounds.maxY,
               },
             },
           }}

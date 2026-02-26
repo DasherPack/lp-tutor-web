@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { siteConfig } from "@/lib/seo/site";
 import { I18nProvider, useTranslation } from "@/lib/i18n";
 import { translations } from "@/lib/i18n";
@@ -15,9 +16,18 @@ function HeaderContent() {
       <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3 sm:px-6">
         <Link
           href="/"
-          className="font-heading text-xl font-semibold tracking-tight text-[var(--foreground)] transition hover:text-[var(--primary)]"
+          className="flex items-center gap-2 font-heading text-xl font-semibold tracking-tight text-[var(--foreground)] transition hover:text-[var(--primary)]"
+          title="dalsegno"
         >
-          {siteConfig.brandShort}
+          <Image
+            src="/dalsegno-logo.svg"
+            alt="dalsegno"
+            width={120}
+            height={36}
+            className="h-8 w-auto"
+            priority
+          />
+          <span className="sr-only sm:not-sr-only sm:inline">{siteConfig.brandShort}</span>
         </Link>
         <nav className="flex items-center gap-2" aria-label={t("common.nav.main")}>
           <Link
@@ -44,7 +54,12 @@ function FooterContent() {
   return (
     <footer className="border-t border-[var(--card-border)] bg-[var(--card)]">
       <div className="mx-auto max-w-4xl px-4 py-5 sm:px-6">
-        <p className="font-heading text-xs text-[var(--muted)]">{t("layout.footer")}</p>
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <p className="font-heading text-xs text-[var(--muted)]">{t("layout.footer")}</p>
+          <Link href="/" className="flex items-center gap-1.5 text-[var(--muted)] transition hover:text-[var(--foreground)]" title="dalsegno">
+            <Image src="/dalsegno-logo.svg" alt="dalsegno" width={80} height={24} className="h-5 w-auto opacity-70" />
+          </Link>
+        </div>
       </div>
     </footer>
   );

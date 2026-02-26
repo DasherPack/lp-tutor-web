@@ -9,10 +9,10 @@
     "view": "View"
   },
   "layout": {
-    "footer": "Educational tool for linear programming. Graphical method and step-by-step Simplex."
+    "footer": "dalsegno educational tool for linear programming. Graphical method and step-by-step Simplex."
   },
   "home": {
-    "title": "Linear Programming Calculator",
+    "title": "dalsegno · Linear Programming Calculator",
     "description": "Educational tool to solve linear optimization problems with the <strong>Simplex method</strong> (step by step) and the <strong>graphical method</strong> in 2D.",
     "simplexLink": "Step-by-step Simplex method",
     "simplexDesc": "— Tableau, Big-M, pivoting and detection of optimum, infeasibility or unboundedness.",
@@ -28,6 +28,7 @@
     "projectionTitle": "Projection onto x₁, x₂",
     "projectionHint": "Projection with x₃ = … = xₙ = 0.",
     "infeasible": "No feasible region (the problem is infeasible).",
+    "unboundedGraphical": "The problem has an unbounded solution.",
     "projectionEmpty": "The projection onto x₁, x₂ (x₃ = … = 0) has no region with area in the plane.",
     "calculatingSimplex": "Computing Simplex…",
     "simplexTitle": "Simplex Method",
@@ -115,7 +116,7 @@
     "last": "Last",
     "allIterations": "Simplex Method — All iterations",
     "iteration": "Iteration {{n}}",
-    "pageTitle": "Tabular Simplex method for linear programming",
+    "pageTitle": "dalsegno · Tabular Simplex method for linear programming",
     "pageIntro": "The <strong>Simplex method</strong> solves linear programming problems in standard form using a <strong>tableau</strong>: first add slack variables (≤), surplus and artificial variables (≥, =) with <strong>Big-M</strong> penalty; then iterate by choosing the entering column (most negative reduced cost) and leaving row (minimum ratio), and apply <strong>pivoting</strong> (Gauss-Jordan) until optimality or detection of infeasibility or unboundedness.",
     "whatIsTitle": "What is the Simplex method?",
     "whatIsP1": "The <strong>Simplex method</strong> is an algorithm to solve linear programming problems. It was developed by <strong>George Dantzig</strong> and consists of moving along vertices of the feasible region (in variable space), improving the objective function value at each step until reaching the optimum or detecting that the problem is unbounded or infeasible.",
@@ -123,9 +124,9 @@
     "whatIsP3": "<strong>Big-M method.</strong> When there are ≥ or = constraints, artificial variables are added and penalized in the objective function with a coefficient -M (in maximization) so they leave the basis; this yields an initial feasible basis or detects infeasibility.",
     "whatIsP4": "<strong>Tableau and pivoting.</strong> The algorithm is applied on a <strong>tableau</strong> (table) representing the system in canonical form with respect to the current basis. At each iteration an entering variable is chosen (by most negative <strong>reduced cost</strong>) and a leaving variable (by the <strong>minimum ratio</strong> rule), and Gauss-Jordan pivoting is performed. The process ends when there are no negative reduced costs (optimum), no leaving row (unbounded) or artificial variables remain in the basis (infeasible).",
     "explanations": {
-      "initialTableau": "Initial table (standard form + Big‑M) and canonicalization with respect to the initial basis.",
-      "pivotStep": "Gauss‑Jordan pivoting: normalizes the pivot row and zeroes the pivot column in the other rows (equivalent to applying an elementary transformation).",
-      "unbounded": "No leaving row (minimum ratio test fails): the problem is unbounded."
+      "initialTableau": "Tableau in standard form (slack, surplus, artificials with Big‑M). Canonicalization: basic columns → identity; z and basic variables appear in the RHS.",
+      "pivotStep": "Basis change: the entering variable replaces the leaving one. Gauss‑Jordan (pivot=1, rest of column=0) preserves canonical form; we move to a new vertex and z improves.",
+      "unbounded": "Entering column has all coefficients ≤ 0: no minimum ratio exists. The variable can grow unboundedly → z → +∞ (unbounded problem)."
     },
     "warnings": {
       "invalidProblem": "The problem is invalid or could not be standardized.",
@@ -134,7 +135,7 @@
     }
   },
   "graphical": {
-    "pageTitle": "2D Graphical method for linear programming",
+    "pageTitle": "dalsegno · 2D Graphical method for linear programming",
     "pageIntro": "The <strong>graphical method</strong> allows solving linear programming problems with <strong>two variables</strong>: each constraint defines a half-plane, the intersection of all of them is the <strong>feasible region</strong> (a polygon). The optimum is reached at one of the <strong>vertices</strong> of the polygon; the objective function is evaluated at each vertex and the maximum or minimum is taken according to the problem's sense.",
     "planeTitle": "Plane (x₁, x₂)",
     "feasibleRegion": "Feasible region",

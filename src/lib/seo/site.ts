@@ -4,11 +4,11 @@
  */
 export const siteConfig = {
   /** Nombre completo para título por defecto y meta (SEO). */
-  name: "Programación Lineal Online — Simplex y Método Gráfico",
+  name: "dalsegno · Programación Lineal — Simplex y Método Gráfico",
   /** Marca corta para header y navegación. */
-  brandShort: "PL Online",
+  brandShort: "dalsegno · PL",
   /** Texto para template de títulos: %s | {titleTemplate} */
-  titleTemplate: "Programación Lineal Online",
+  titleTemplate: "dalsegno · Programación Lineal",
   shortDescription:
     "Calculadora de programación lineal: método gráfico 2D y algoritmo Simplex tabular paso a paso. Herramienta educativa gratuita.",
   description:

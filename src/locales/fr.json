@@ -9,10 +9,10 @@
     "view": "Voir"
   },
   "layout": {
-    "footer": "Outil éducatif de programmation linéaire. Méthode graphique et Simplexe pas à pas."
+    "footer": "Outil éducatif dalsegno de programmation linéaire. Méthode graphique et Simplexe pas à pas."
   },
   "home": {
-    "title": "Calculateur de programmation linéaire",
+    "title": "dalsegno · Calculateur de programmation linéaire",
     "description": "Outil éducatif pour résoudre les problèmes d'optimisation linéaire avec la <strong>méthode du Simplexe</strong> (pas à pas) et la <strong>méthode graphique</strong> en 2D.",
     "simplexLink": "Méthode du Simplexe pas à pas",
     "simplexDesc": "— Tableau, Big-M, pivotage et détection d'optimum, d'infaisabilité ou de non bornitude.",
@@ -28,6 +28,7 @@
     "projectionTitle": "Projection sur x₁, x₂",
     "projectionHint": "Projection en fixant x₃ = … = xₙ = 0.",
     "infeasible": "Pas de région réalisable (le problème est infaisable).",
+    "unboundedGraphical": "Le problème a une solution non bornée.",
     "projectionEmpty": "La projection sur x₁, x₂ (x₃ = … = 0) n'a pas de région avec aire dans le plan.",
     "calculatingSimplex": "Calcul du Simplexe…",
     "simplexTitle": "Méthode du Simplexe",
@@ -115,7 +116,7 @@
     "last": "Fin",
     "allIterations": "Méthode du Simplexe — Toutes les itérations",
     "iteration": "Itération {{n}}",
-    "pageTitle": "Méthode du Simplexe tabulaire pour la programmation linéaire",
+    "pageTitle": "dalsegno · Méthode du Simplexe tabulaire pour la programmation linéaire",
     "pageIntro": "La <strong>méthode du Simplexe</strong> résout les problèmes de programmation linéaire sous forme standard à l'aide d'un <strong>tableau</strong> : on ajoute d'abord les variables d'écart (≤), d'excédent et artificielles (≥, =) avec pénalisation <strong>Big-M</strong> ; puis on itère en choisissant la colonne entrante (coût réduit le plus négatif) et la ligne sortante (rapport minimal), et on applique le <strong>pivotage</strong> (Gauss-Jordan) jusqu'à l'optimalité ou la détection d'infaisabilité ou de non bornitude.",
     "whatIsTitle": "Qu'est-ce que la méthode du Simplexe ?",
     "whatIsP1": "La <strong>méthode du Simplexe</strong> est un algorithme pour résoudre les problèmes de programmation linéaire. Elle a été développée par <strong>George Dantzig</strong> et consiste à se déplacer le long des sommets de la région réalisable (dans l'espace des variables), en améliorant la valeur de la fonction objectif à chaque étape jusqu'à atteindre l'optimum ou détecter que le problème est non borné ou infaisable.",
@@ -123,9 +124,9 @@
     "whatIsP3": "<strong>Méthode Big-M.</strong> Lorsqu'il y a des contraintes ≥ ou =, des variables artificielles sont ajoutées et pénalisées dans la fonction objectif par un coefficient -M (en maximisation) pour qu'elles quittent la base ; ainsi on obtient une base réalisable initiale ou on détecte l'infaisabilité.",
     "whatIsP4": "<strong>Tableau et pivotage.</strong> L'algorithme s'applique sur un <strong>tableau</strong> représentant le système sous forme canonique par rapport à la base actuelle. À chaque itération, une variable entrante est choisie (par le <strong>coût réduit</strong> le plus négatif) et une variable sortante (par la règle du <strong>rapport minimal</strong>), et un pivotage de type Gauss-Jordan est effectué. Le processus se termine lorsqu'il n'y a plus de coûts réduits négatifs (optimum), plus de ligne sortante (non borné) ou des variables artificielles restent dans la base (infaisable).",
     "explanations": {
-      "initialTableau": "Tableau initial (forme standard + Big‑M) et canonicalisation par rapport à la base initiale.",
-      "pivotStep": "Pivotage de Gauss‑Jordan : normalise la ligne pivot et annule la colonne pivot dans les autres lignes (équivalent à appliquer une transformation élémentaire).",
-      "unbounded": "Pas de ligne sortante (le test du rapport minimal échoue) : le problème est non borné."
+      "initialTableau": "Tableau en forme standard (écart, excédent, artificielles avec Big‑M). Canonicalisation : colonnes de base → identité ; z et variables de base dans le RHS.",
+      "pivotStep": "Changement de base : la variable entrante remplace la sortante. Gauss‑Jordan (pivot=1, reste de colonne=0) préserve la forme canonique ; nouveau sommet, z s'améliore.",
+      "unbounded": "Colonne entrante avec tous les coefficients ≤ 0 : pas de rapport minimal. La variable peut croître sans borne → z → +∞ (problème non borné)."
     },
     "warnings": {
       "invalidProblem": "Le problème n'est pas valide ou n'a pas pu être mis sous forme standard.",
@@ -134,7 +135,7 @@
     }
   },
   "graphical": {
-    "pageTitle": "Méthode graphique 2D pour la programmation linéaire",
+    "pageTitle": "dalsegno · Méthode graphique 2D pour la programmation linéaire",
     "pageIntro": "La <strong>méthode graphique</strong> permet de résoudre les problèmes de programmation linéaire à <strong>deux variables</strong> : chaque contrainte définit un demi-plan, l'intersection de tous forme la <strong>région réalisable</strong> (un polygone). L'optimum est atteint en un des <strong>sommets</strong> du polygone ; on évalue la fonction objectif à chaque sommet et on prend le maximum ou le minimum selon le sens du problème.",
     "planeTitle": "Plan (x₁, x₂)",
     "feasibleRegion": "Région réalisable",

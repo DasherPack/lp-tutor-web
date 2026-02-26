@@ -167,7 +167,11 @@ export function MainFlow() {
             <p className="mt-1 text-sm text-[var(--muted)]">{t("mainFlow.projectionHint")}</p>
           ) : null}
           <div className="mt-4">
-            {graphical.vertices.length > 0 ? (
+            {graphical.status === "maybe_unbounded" ? (
+              <div className="rounded-[var(--radius-lg)] border border-[var(--warning)]/30 bg-[var(--warning-bg)] p-4">
+                <p className="text-sm text-[var(--warning)]">{t("mainFlow.unboundedGraphical")}</p>
+              </div>
+            ) : graphical.vertices.length > 0 ? (
               <FeasibleChart
                 vertices={graphical.vertices}
                 escapingRays={graphical.escapingRays ?? []}
