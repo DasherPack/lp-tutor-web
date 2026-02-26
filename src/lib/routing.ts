@@ -29,6 +29,6 @@ export const ROUTES = {
 
 /** Construye path con locale: /[locale]/path */
 export function pathWithLocale(locale: Locale, path: string): string {
-  const clean = path.replace(/^\/+|\/+$/g);
+  const clean = path.replace(/^\/+|\/+$/g, "");
   return clean ? `/${locale}/${clean}` : `/${locale}`;
 }
