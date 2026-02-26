@@ -27,6 +27,15 @@ export const metadata: Metadata = {
   alternates: { canonical: `${baseUrl}/graphical` },
 };
 
+const graphicalBreadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: baseUrl },
+    { "@type": "ListItem", position: 2, name: "Método gráfico 2D", item: `${baseUrl}/graphical` },
+  ],
+};
+
 const graphicalJsonLd = {
   "@context": "https://schema.org",
   "@type": "LearningResource",
@@ -53,6 +62,10 @@ export default function GraphicalLayout({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(graphicalJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(graphicalBreadcrumbJsonLd) }}
       />
       <article aria-labelledby="graphical-heading">
         <GraphicalHeader />

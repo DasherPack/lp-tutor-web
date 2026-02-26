@@ -12,12 +12,31 @@ import type { Locale } from "./types";
 import type { Translations } from "./types";
 
 const STORAGE_KEY = "lp-tutor-locale";
+const SUPPORTED: Locale[] = ["es", "en", "fr", "de", "ja", "zh"];
+
+/** Mapea código de idioma del navegador (ej. "en-US", "es") a Locale soportado. */
+function detectBrowserLocale(): Locale {
+  if (typeof navigator === "undefined") return "es";
+  const langs = navigator.languages ?? [navigator.language];
+  for (const raw of langs) {
+    const code = (raw ?? "").split("-")[0].toLowerCase();
+    if (code === "zh") return "zh";
+    if (code === "ja") return "ja";
+    if (code === "de") return "de";
+    if (code === "fr") return "fr";
+    if (code === "en") return "en";
+    if (code === "es") return "es";
+  }
+  return "es";
+}
 
 function getStoredLocale(): Locale {
   if (typeof window === "undefined") return "es";
   const stored = localStorage.getItem(STORAGE_KEY);
-  if (stored === "es" || stored === "en" || stored === "fr" || stored === "de" || stored === "ja" || stored === "zh") return stored;
-  return "es";
+  if (SUPPORTED.includes(stored as Locale)) return stored as Locale;
+  const detected = detectBrowserLocale();
+  localStorage.setItem(STORAGE_KEY, detected);
+  return detected;
 }
 
 function setStoredLocale(locale: Locale): void {

@@ -1,0 +1,19 @@
+{
+  "name": "dalsegno · Programación Lineal — Simplex y Método Gráfico",
+  "short_name": "dalsegno · PL",
+  "description": "Calculadora de programación lineal: método gráfico 2D y algoritmo Simplex tabular paso a paso. Herramienta educativa gratuita.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f172a",
+  "lang": "es",
+  "categories": ["education", "utilities"],
+  "icons": [
+    {
+      "src": "/dalsegno-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

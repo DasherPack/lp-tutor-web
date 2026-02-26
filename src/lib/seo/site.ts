@@ -36,8 +36,12 @@ export const siteConfig = {
     "linear programming",
   ],
   locale: "es_ES",
+  /** Colores para theme-color y PWA */
+  themeColor: "#0f172a",
+  backgroundColor: "#ffffff",
+  /** En producción, definir NEXT_PUBLIC_SITE_URL. Fallback: GitHub Pages del repo. */
   baseUrl:
     typeof process !== "undefined" && process.env?.NEXT_PUBLIC_SITE_URL
       ? process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "")
-      : undefined,
+      : "https://dasherpack.github.io/lp-tutor-web",
 } as const;

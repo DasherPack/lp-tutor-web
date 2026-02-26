@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Source_Serif_4 } from "next/font/google";
 import { siteConfig } from "@/lib/seo/site";
 import { I18nShell } from "@/components/I18nShell";
@@ -20,7 +20,13 @@ const sourceSerif = Source_Serif_4({
   weight: ["400", "600", "700"],
 });
 
-const baseUrl = siteConfig.baseUrl ?? "https://lp-tutor.example.com";
+const baseUrl = siteConfig.baseUrl;
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: siteConfig.themeColor,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -32,6 +38,8 @@ export const metadata: Metadata = {
   keywords: [...siteConfig.keywords],
   authors: [{ name: siteConfig.name }],
   creator: siteConfig.name,
+  applicationName: siteConfig.brandShort,
+  category: "education",
   openGraph: {
     type: "website",
     locale: siteConfig.locale,
@@ -49,6 +57,8 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
+  manifest: "/manifest.json",
+  referrer: "origin-when-cross-origin",
   robots: {
     index: true,
     follow: true,

@@ -94,6 +94,15 @@ const simplexFaqJsonLd = {
   ],
 };
 
+const simplexBreadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: baseUrl },
+    { "@type": "ListItem", position: 2, name: "Método Simplex", item: `${baseUrl}/simplex` },
+  ],
+};
+
 const simplexHowToJsonLd = {
   "@context": "https://schema.org",
   "@type": "HowTo",
@@ -124,6 +133,10 @@ export default function SimplexLayout({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(simplexHowToJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(simplexBreadcrumbJsonLd) }}
       />
       <article aria-labelledby="simplex-heading">
         <SimplexHeader />
