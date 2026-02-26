@@ -17,7 +17,10 @@
     "simplexLink": "Méthode du Simplexe pas à pas",
     "simplexDesc": "— Tableau, Big-M, pivotage et détection d'optimum, d'infaisabilité ou de non bornitude.",
     "graphicalLink": "Méthode graphique 2D",
-    "graphicalDesc": "— Région réalisable, sommets et point optimal pour les problèmes à deux variables."
+    "graphicalDesc": "— Région réalisable, sommets et point optimal pour les problèmes à deux variables.",
+    "whatIsLpTitle": "Qu'est-ce que la programmation linéaire ?",
+    "whatIsLpP1": "La <strong>programmation linéaire</strong> (PL) est une technique d'optimisation pour les problèmes où la fonction objectif et les contraintes sont linéaires. Elle s'utilise en logistique, production, finance et en ingénierie.",
+    "whatIsLpP2": "Cette calculatrice résout les problèmes de programmation linéaire de façon pédagogique : avec la <strong>méthode graphique</strong> pour 2 variables (région réalisable, sommets, optimum) et avec l'<strong>algorithme du Simplexe</strong> pas à pas pour tout nombre de variables, en affichant le tableau, le pivotage et chaque opération élémentaire."
   },
   "mainFlow": {
     "title": "Formuler le problème",

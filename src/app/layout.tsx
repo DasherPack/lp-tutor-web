@@ -64,18 +64,6 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true },
   },
-  alternates: {
-    canonical: baseUrl,
-    languages: {
-      "es": baseUrl,
-      "en": baseUrl,
-      "fr": baseUrl,
-      "de": baseUrl,
-      "ja": baseUrl,
-      "zh-Hans": baseUrl,
-      "x-default": baseUrl,
-    },
-  },
 };
 
 const jsonLd = {
@@ -126,7 +114,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
@@ -136,7 +124,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${sourceSerif.variable} min-h-dvh antialiased bg-[var(--background)] text-[var(--foreground)]`}
       >
-        <I18nShell>{children}</I18nShell>
+        {children}
       </body>
     </html>
   );

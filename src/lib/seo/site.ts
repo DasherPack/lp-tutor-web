@@ -39,9 +39,9 @@ export const siteConfig = {
   /** Colores para theme-color y PWA */
   themeColor: "#0f172a",
   backgroundColor: "#ffffff",
-  /** En producción, definir NEXT_PUBLIC_SITE_URL. Fallback: GitHub Pages del repo. */
+  /** Dominio canónico. En producción, NEXT_PUBLIC_SITE_URL puede sobreescribirlo. */
   baseUrl:
     typeof process !== "undefined" && process.env?.NEXT_PUBLIC_SITE_URL
       ? process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "")
-      : "https://dasherpack.github.io/lp-tutor-web",
+      : "https://lp.dalsegno.dev",
 } as const;

@@ -2,13 +2,18 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import { useTranslation } from "@/lib/i18n";
+import { pathWithLocale } from "@/lib/routing";
+import type { Locale } from "@/lib/i18n";
 
 export function SimplexHeader() {
   const { t } = useTranslation();
+  const params = useParams();
+  const locale = (params?.locale as Locale) ?? "es";
   return (
     <header className="mb-4">
-      <Link href="/" className="mb-3 inline-block" title="dalsegno">
+      <Link href={pathWithLocale(locale, "")} className="mb-3 inline-block" title="dalsegno">
         <Image src="/dalsegno-logo.svg" alt="dalsegno" width={90} height={27} className="h-6 w-auto opacity-80" />
       </Link>
       <h1

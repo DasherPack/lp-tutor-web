@@ -4,6 +4,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
   type ReactNode,
@@ -66,11 +67,23 @@ function getNested(obj: Record<string, unknown>, path: string): string | undefin
 export function I18nProvider({
   children,
   translations,
+  initialLocale,
 }: {
   children: ReactNode;
   translations: Record<Locale, Translations>;
+  /** Locale desde la URL (prioridad sobre localStorage). */
+  initialLocale?: Locale;
 }) {
-  const [locale, setLocaleState] = useState<Locale>(() => getStoredLocale());
+  const [locale, setLocaleState] = useState<Locale>(
+    () => (initialLocale && SUPPORTED.includes(initialLocale) ? initialLocale : getStoredLocale()),
+  );
+
+  useEffect(() => {
+    if (initialLocale && SUPPORTED.includes(initialLocale) && initialLocale !== locale) {
+      setLocaleState(initialLocale);
+      setStoredLocale(initialLocale);
+    }
+  }, [initialLocale, locale]);
 
   const setLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale);

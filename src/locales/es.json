@@ -17,7 +17,10 @@
     "simplexLink": "Método Simplex paso a paso",
     "simplexDesc": "— Tableau, Big-M, pivoteo y detección de óptimo, infactibilidad o no acotación.",
     "graphicalLink": "Método gráfico 2D",
-    "graphicalDesc": "— Región factible, vértices y punto óptimo para problemas con dos variables."
+    "graphicalDesc": "— Región factible, vértices y punto óptimo para problemas con dos variables.",
+    "whatIsLpTitle": "¿Qué es la programación lineal?",
+    "whatIsLpP1": "La <strong>programación lineal</strong> (PL o LP) es una técnica de optimización que permite resolver problemas donde la función objetivo y las restricciones son lineales. Se utiliza en logística, producción, finanzas y muchas áreas de la ingeniería.",
+    "whatIsLpP2": "Esta calculadora resuelve problemas de programación lineal de forma educativa: con el <strong>método gráfico</strong> para 2 variables (región factible, vértices, óptimo) y con el <strong>algoritmo Simplex</strong> paso a paso para cualquier número de variables, mostrando el tableau, el pivoteo y cada operación elemental."
   },
   "mainFlow": {
     "title": "Plantear el problema",

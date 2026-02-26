@@ -17,7 +17,10 @@
     "simplexLink": "Step-by-step Simplex method",
     "simplexDesc": "— Tableau, Big-M, pivoting and detection of optimum, infeasibility or unboundedness.",
     "graphicalLink": "2D Graphical method",
-    "graphicalDesc": "— Feasible region, vertices and optimal point for two-variable problems."
+    "graphicalDesc": "— Feasible region, vertices and optimal point for two-variable problems.",
+    "whatIsLpTitle": "What is linear programming?",
+    "whatIsLpP1": "<strong>Linear programming</strong> (LP) is an optimization technique for problems with a linear objective function and linear constraints. It is used in logistics, production, finance and many engineering fields.",
+    "whatIsLpP2": "This calculator solves linear programming problems in an educational way: with the <strong>graphical method</strong> for 2 variables (feasible region, vertices, optimum) and with the <strong>Simplex algorithm</strong> step by step for any number of variables, showing the tableau, pivoting and each elementary operation."
   },
   "mainFlow": {
     "title": "State the problem",
