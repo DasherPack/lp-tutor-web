@@ -28,7 +28,8 @@ export function LocaleSelector({ locale }: { locale: Locale }) {
   const router = useRouter();
   const innerPath = getInnerPath(pathname, locale);
 
-  const handleSelect = (newLocale: Locale) => {
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newLocale = e.target.value as Locale;
     if (newLocale === currentLocale) return;
     setLocale(newLocale);
     const newPath = pathWithLocale(newLocale, innerPath);
@@ -36,22 +37,17 @@ export function LocaleSelector({ locale }: { locale: Locale }) {
   };
 
   return (
-    <div className="flex items-center gap-1 rounded-[var(--radius)] border border-[var(--card-border)] bg-[var(--muted-bg)] p-0.5">
+    <select
+      value={currentLocale}
+      onChange={handleChange}
+      aria-label="Select language"
+      className="rounded-[var(--radius)] border border-[var(--card-border)] bg-[var(--muted-bg)] px-2 py-1 text-xs font-medium text-[var(--foreground)] transition hover:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)] cursor-pointer"
+    >
       {locales.map(({ value, label }) => (
-        <button
-          key={value}
-          type="button"
-          onClick={() => handleSelect(value)}
-          className={`rounded px-2 py-1 text-xs font-medium transition ${
-            currentLocale === value
-              ? "bg-[var(--card)] text-[var(--foreground)] shadow-sm"
-              : "text-[var(--muted)] hover:text-[var(--foreground)]"
-          }`}
-          aria-label={`Language: ${label}`}
-        >
+        <option key={value} value={value}>
           {label}
-        </button>
+        </option>
       ))}
-    </div>
+    </select>
   );
 }
